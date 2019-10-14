@@ -503,6 +503,7 @@
             else
                 echoerr 'curl or wget are required to install vim-plug'
             endif
+            echo 'vim-plug installation complete'
         else
             echo 'vim-plug is already installed'
         endif
