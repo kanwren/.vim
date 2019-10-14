@@ -316,26 +316,6 @@
         normal gv"0P
     endfunction
 
-" Testing
-    function! ColorList() abort
-        let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
-        return map(paths, 'fnamemodify(v:val, ":t:r")')
-    endfunction
-
-    function! NextColor() abort
-        if !exists('g:colors') || !exists('g:cur_color')
-            let g:colors = ColorList()
-            let g:cur_color = -1
-        endif
-        let g:cur_color += 1
-        let g:cur_color = g:cur_color % len(g:colors)
-        execute ':colorscheme ' . g:colors[g:cur_color]
-        set background=dark
-        redraw
-        echo 'Switched to: ' . g:colors[g:cur_color] . ' (' . (g:cur_color + 1) . ')'
-    endfunction
-" }}}
-
 " Mappings {{{
 
 " Notes:
