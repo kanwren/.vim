@@ -333,6 +333,10 @@
 " * \ is for special operations, like invoking external programs or managing
 "   sessions
 
+" Command line mappings
+    " Strip whitespace when using <C-r><C-l>
+    cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
+
 " Leader configuration
     map <Space> <nop>
     map <S-Space> <Space>
@@ -612,7 +616,7 @@
     endif
 
 " Local vimrc
-    if !empty(glob('~/local.vimrc'))
+    if !empty(glob('~/local.vimrc')) && filereadable(glob('~/local.vimrc'))
         execute 'source ' . glob('~/local.vimrc')
     end
 

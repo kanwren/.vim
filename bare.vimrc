@@ -108,6 +108,7 @@ vnoremap gs :s/\%V
 nnoremap <silent> * :let wv=winsaveview()<CR>*:call winrestview(wv)<CR>
 nnoremap <silent> "" :registers<CR>
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
 
 " Leader mappings
 map <Space> <nop>
@@ -162,7 +163,7 @@ endif
 silent! colorscheme elflord
 
 " Local vimrc
-if !empty(glob('~/local.vimrc'))
+if !empty(glob('~/local.vimrc')) && filereadable(glob('~/local.vimrc'))
     execute 'source ' . glob('~/local.vimrc')
 end
 
