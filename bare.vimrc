@@ -18,7 +18,11 @@ if !syntax_on | syntax on | end
 " endif
 " if has('persistent_undo')
 "     set undofile undodir^=~/.vim/undo//
+"     if !isdirectory(&undodir) | call mkdir(&undodir, 'p') | endif
 " endif
+" for d in [&directory, &backupdir]
+"     if !isdirectory(d) | call mkdir(d, 'p') | endif
+" endfor
 
 if has("patch-8.1.0360")
     set diffopt+=internal,algorithm:patience
