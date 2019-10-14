@@ -24,10 +24,7 @@ if has("patch-8.1.0360")
     set diffopt+=internal,algorithm:patience
 endif
 
-let $LANG='en'
-set nospell spelllang=en_us
 set history=1000 undolevels=1000
-
 set hidden autoread noconfirm
 set noerrorbells visualbell t_vb=
 set mouse=a
@@ -35,7 +32,8 @@ set lazyredraw
 set number relativenumber
 set splitbelow splitright
 set cmdheight=1 showcmd
-set laststatus=2 showmode statusline=[%n]\ %f%<\ %m%y%h%w%r\ \ %(0x%B\ %b%)%=%p%%\ \ %(%l/%L%)%(\ \|\ %c%V%)%(\ %)
+set laststatus=2 showmode
+set statusline=[%n]\ %f%<\ %m%y%h%w%r\ \ %(0x%B\ %b%)%=%p%%\ \ %(%l/%L%)%(\ \|\ %c%V%)%(\ %)
 set wildmenu wildmode=longest:list,full
 set list listchars=tab:>-,eol:¬,extends:>,precedes:<
 
@@ -55,6 +53,9 @@ set showmatch
 set incsearch
 if &t_Co > 2 || has("gui_running") | set hlsearch | endif
 " set foldenable foldmethod=manual foldcolumn=1 foldlevelstart=99
+
+let $LANG='en'
+set nospell spelllang=en_us
 
 set timeout timeoutlen=3000 ttimeout ttimeoutlen=0
 
@@ -86,6 +87,7 @@ end
 command! WS :execute ':silent w !sudo tee % > /dev/null' | :edit!
 command! CD :cd %:h
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1 | nohlsearch
+command! GetThesaurus :!curl --create-dirs http://www.gutenberg.org/files/3202/files/mthesaur.txt -o ~/.vim/thesaurus/mthesaur.txt
 
 " Basic mappings
 " Warning: all of these mappings override default behavior in some way

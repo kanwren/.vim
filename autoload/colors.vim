@@ -4,6 +4,11 @@ function! colors#colorlist() abort
 endfunction
 
 let s:colors = colors#colorlist()
+
+function! colors#exists(name) abort
+    return index(s:colors, a:name) > -1
+endfunction
+
 let s:cur_color = -1
 
 function! colors#nextcolor() abort

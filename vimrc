@@ -28,11 +28,6 @@
         set diffopt+=internal,algorithm:patience
     endif
 
-" Spelling and thesaurus
-    let $LANG='en'
-    set nospell spelllang=en_us
-    set thesaurus=~/.vim/thesaurus/mthesaur.txt
-
 " Colors and terminal settings
     if &term =~ ".*-256color"
         let &t_ti.="\e[1 q"
@@ -81,7 +76,10 @@
 
 " Editing
     set noinsertmode                     " just in case
-    set clipboard=unnamedplus
+    set clipboard=unnamed
+    if has('unnamedplus')
+        set clipboard+=unnamedplus
+    endif
     set virtualedit=all                  " allow editing past the ends of lines
     set nojoinspaces                     " never two spaces after sentence
     set backspace=indent,eol,start       " let backspace delete linebreak
@@ -119,6 +117,11 @@
     set foldcolumn=1
     set foldlevelstart=99
 
+" Spelling and thesaurus
+    let $LANG='en'
+    set nospell spelllang=en_us
+    set thesaurus=~/.vim/thesaurus/mthesaur.txt
+
 " Timeouts
     "set ttyfast
     " Time out on mappings after 3 seconds
@@ -144,7 +147,6 @@
             autocmd InsertLeave * match ExtraWhitespace /\s\+$/
         augroup END
         augroup detect_group
-            " Define new filetypes for ftplugin
             autocmd BufNewFile,BufRead *.cls setf tex
         augroup END
         " Highlighting
@@ -437,29 +439,11 @@
     vmap <silent> gbdh <Plug>(DecToHex)
     vmap <silent> gbhd <Plug>(HexToDec)
 
-" Inline execution
-    " Run selection in python and replace with output for programmatic text generation
-    nnoremap <Leader><Leader>p :.!python3<CR>
-    vnoremap <Leader><Leader>p :!python3<CR>
-
-" Netrw mappings (<Leader>l)
-    " Open directory of current buffer in vertical split
-    nnoremap <Leader>lv :Vex<CR>
-    " Open directory of current working directory in vertical split
-    nnoremap <Leader>ll :Lex<CR>
-    nnoremap <Leader>le :Ex<CR>
-
 " fzf mappings (<Leader>f)
     " All files
     nnoremap <Leader>ff :Files<CR>
     " All git ls-files files
     nnoremap <Leader>fg :GFiles<CR>
-    " All lines in loaded buffers
-    nnoremap <Leader>fl :Lines<CR>
-    " All lines in current buffer
-    nnoremap <Leader>fb :BLines<CR>
-    " Results of a ripgrep search
-    nnoremap <Leader>fr :Rg<Space>
     " Results of an ag search
     nnoremap <Leader>fa :Ag<Space>
     " Tags in project
@@ -473,7 +457,7 @@
     nnoremap <Leader>gc  :Gcommit<CR>
     nnoremap <Leader>gd  :Gvdiff<CR>
 
-" Quick notes
+" Misc
     " Global scratch buffer
     nnoremap <Leader><Leader>es :edit ~/scratch<CR>
 "}}}
@@ -489,10 +473,8 @@
     iabbrev <expr> xymd strftime("%Y-%m-%d")
     " Sat 15 Sep 2018
     iabbrev <expr> xdate strftime("%a %d %b %Y")
-    " 11:31 PM
-    iabbrev <expr> xtime strftime("%I:%M %p")
     " 23:31
-    iabbrev <expr> xmtime strftime("%H:%M")
+    iabbrev <expr> xtime strftime("%H:%M")
     " 2018-09-15T23:31:54
     iabbrev <expr> xiso strftime("%Y-%m-%dT%H:%M:%S")
 
@@ -527,7 +509,6 @@
         Plug 'sheerun/vim-polyglot'              " Collection of language packs to rule them all
         Plug 'tpope/vim-eunuch'                  " File operations
         Plug 'tpope/vim-fugitive'                " Git integration
-        Plug 'junegunn/goyo.vim'                 " Distraction-free writing in Vim
         Plug 'airblade/vim-rooter'               " Automatically cd to project root
 
         " Utility
@@ -567,11 +548,6 @@
     let g:netrw_banner=0
     " Default to thin view
     let g:netrw_liststyle=1
-    " Open previews to the bottom-right
-    "let g:netrw_preview=0
-    "let g:netrw_alto=0
-    " Default to right splitting
-    "let g:netrw_altv=1
 
 " Rooter
     let g:rooter_silent_chdir = 1
@@ -604,16 +580,6 @@
     let g:vimwiki_dir_link = 'index'
     "let g:vimwiki_table_auto_fmt = 0
 
-" Goyo
-    function! s:goyo_enter() abort
-        set nolist
-        set foldcolumn=0
-        set wrap
-        set scrolloff=999
-    endfunction
-    autocmd! User GoyoEnter nested call <SID>goyo_enter()
-    autocmd! User GoyoLeave nested source $MYVIMRC
-
 " haskell-vim
     let g:haskell_enable_quantification = 1   " `forall`
     let g:haskell_enable_recursivedo = 1      " `mdo` and `rec`
@@ -635,7 +601,7 @@
 " }}}
 
 " Colorscheme can come anywhere after highlighting autocommands
-    if &term =~ ".*-256color" && !empty(globpath(&runtimepath, 'colors/nord.vim'))
+    if &term =~ ".*-256color" && colors#exists('nord')
         silent! colorscheme nord
     else
         silent! colorscheme elflord
