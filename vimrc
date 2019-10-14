@@ -507,23 +507,24 @@
         else
             echo 'vim-plug is already installed'
         endif
-        if empty(glob('~/.vim/bundle'))
-            let make_bundle = input('~/.vim/bundle plugin directory not found. create? (y/n) ', '')
+        if empty(glob('~/.vim/plugged'))
+            let make_bundle = input('~/.vim/plugged plugin directory not found. create? (y/n) ', '')
             if make_bundle =~? '^y'
-                call mkdir(expand('~/.vim/bundle'), 'p')
+                call mkdir(expand('~/.vim/plugged'), 'p')
             endif
         endif
     endfunction
 
     silent! if !empty(glob('~/.vim/autoload/plug.vim'))
-                \ && !empty(glob('~/.vim/bundle'))
-                \ && plug#begin(glob('~/.vim/bundle'))
+                \ && !empty(glob('~/.vim/plugged'))
+                \ && plug#begin(glob('~/.vim/plugged'))
         " Functionality
-        Plug 'vimwiki/vimwiki'                   " Personal wiki for Vim
-        Plug 'sheerun/vim-polyglot'              " Collection of language packs to rule them all
-        Plug 'tpope/vim-eunuch'                  " File operations
+        Plug 'tpope/vim-dispatch'                " Async dispatching
         Plug 'tpope/vim-fugitive'                " Git integration
+        Plug 'tpope/vim-eunuch'                  " File operations
         Plug 'airblade/vim-rooter'               " Automatically cd to project root
+        Plug 'sheerun/vim-polyglot'              " Collection of language packs to rule them all
+        Plug 'vimwiki/vimwiki'                   " Personal wiki for Vim
 
         " Utility
         Plug 'tpope/vim-surround'                " Mappings for inserting/changing/deleting surrounding characters/elements
