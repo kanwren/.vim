@@ -151,6 +151,12 @@ function! InstallVimPlug() abort
     else
         echo 'vim-plug is already installed'
     endif
+    if empty(glob('~/.vim/bundle'))
+        let make_bundle = input('~/.vim/bundle plugin directory not found. create? (y/n) ', '')
+        if make_bundle =~? '^y'
+            call mkdir(expand('~/.vim/bundle'), 'p')
+        endif
+    endif
 endfunction
 
 " Plugins
