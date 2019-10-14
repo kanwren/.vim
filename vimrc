@@ -150,9 +150,6 @@
             autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
             autocmd InsertLeave * match ExtraWhitespace /\s\+$/
         augroup END
-        augroup detect_group
-            autocmd BufNewFile,BufRead *.cls setf tex
-        augroup END
         " Highlighting
         augroup highlight_group
             autocmd!
@@ -321,6 +318,8 @@
         let @" = str
         normal gv"0P
     endfunction
+
+" }}}
 
 " Mappings {{{
 
