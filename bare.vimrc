@@ -151,17 +151,17 @@ function! InstallVimPlug() abort
     else
         echo 'vim-plug is already installed'
     endif
-    if empty(glob('~/.vim/bundle'))
-        let make_bundle = input('~/.vim/bundle plugin directory not found. create? (y/n) ', '')
+    if empty(glob('~/.vim/plugged'))
+        let make_bundle = input('~/.vim/plugged plugin directory not found. create? (y/n) ', '')
         if make_bundle =~? '^y'
-            call mkdir(expand('~/.vim/bundle'), 'p')
+            call mkdir(expand('~/.vim/plugged'), 'p')
         endif
     endif
 endfunction
 
 " Plugins
 runtime macros/matchit.vim
-silent! if !empty(glob('~/.vim/autoload/plug.vim')) && !empty(glob('~/.vim/bundle')) && plug#begin(glob('~/.vim/bundle'))
+silent! if !empty(glob('~/.vim/autoload/plug.vim')) && !empty(glob('~/.vim/plugged')) && plug#begin(glob('~/.vim/plugged'))
     " Plug 'tpope/vim-surround'
     call plug#end()
 endif

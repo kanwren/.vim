@@ -323,15 +323,6 @@
 
 " Mappings {{{
 
-" Notes:
-" * Space is the default leader, and Shift-Space has the same function to make
-"   it easier to hit things like <Space>P
-" * Single leader is for abbreviating common operations and important plugin
-"   commands
-" * Double leader is for execution of meta-editing operations, like inline execution
-" * \ is for special operations, like invoking external programs or managing
-"   sessions
-
 " Command line mappings
     " Strip whitespace when using <C-r><C-l>
     cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
@@ -508,8 +499,8 @@
             echo 'vim-plug is already installed'
         endif
         if empty(glob('~/.vim/plugged'))
-            let make_bundle = input('~/.vim/plugged plugin directory not found. create? (y/n) ', '')
-            if make_bundle =~? '^y'
+            let make_plugged = input('~/.vim/plugged plugin directory not found. create? (y/n) ', '')
+            if make_plugged =~? '^y'
                 call mkdir(expand('~/.vim/plugged'), 'p')
             endif
         endif

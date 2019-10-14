@@ -7,7 +7,7 @@ backup/
 undo/
 
 # Plugins managed by vim-plug
-bundle/
+plugged/
 
 # Large files for spelling, etc.
 spell/
