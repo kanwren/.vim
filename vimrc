@@ -506,6 +506,10 @@
         endif
     endfunction
 
+    " Plugin settings that need to be set before their plugins are loaded
+    " lc3.vim
+    let g:lc3_detect_asm = 1
+
     silent! if !empty(glob('~/.vim/autoload/plug.vim'))
                 \ && !empty(glob('~/.vim/plugged'))
                 \ && plug#begin(glob('~/.vim/plugged'))
@@ -601,9 +605,6 @@
 " markdown-preview
     let vim_markdown_preview_pandoc = 1
     let vim_markdown_preview_use_xdg_open = 1
-
-" lc3.vim
-    let g:lc3_detect_asm = 1
 " }}}
 
 " Colorscheme can come anywhere after highlighting autocommands
