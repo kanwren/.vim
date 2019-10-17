@@ -4,8 +4,6 @@ set textwidth=80
 " Automatically wrap at textwidth
 setlocal formatoptions+=t
 
-" Compile
-nnoremap <buffer> <F2> :w \| !cd %:h && pdflatex %:t<CR><CR>
 " View PDF
 nnoremap <buffer> <F3> :! mupdf %<.pdf &<CR><CR>
 
@@ -27,3 +25,5 @@ inoremap <buffer> ,< \langle\rangle<Esc>F\i
 inoremap <buffer> ,( \left(\right)<Esc>F\i
 inoremap <buffer> ,[ \left[\right]<Esc>F\i
 
+inoremap <buffer> ,bmat \begin{bmatrix*}[r]\end{bmatrix*}<Esc>F\i
+inoremap <buffer> ,rec \frac{1}{}<Left>
