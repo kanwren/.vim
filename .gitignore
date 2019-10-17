@@ -13,5 +13,8 @@ plugged/
 spell/
 thesaurus/
 
+# Files to save setup between vim sessions
+sessions
+
 # Netrw
 .netrwhist
