@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead Procfile setf yaml
+autocmd! BufNewFile,BufRead Procfile setfiletype yaml

@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.cls setf tex
+autocmd! BufNewFile,BufRead *.cls setfiletype tex
