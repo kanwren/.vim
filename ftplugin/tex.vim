@@ -1,4 +1,4 @@
-setlocal makeprg=cd\ %:h\ &&\ pdflatex\ %:t
+setlocal makeprg=pdflatex\ -quiet\ -aux-directory=%:h\ -output-directory\ %:h\ %
 
 set textwidth=80
 " Automatically wrap at textwidth
