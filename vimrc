@@ -278,6 +278,7 @@
     nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
     " Search word underneath cursor/selection but don't jump
     nnoremap <silent> * :let wv=winsaveview()<CR>*:call winrestview(wv)<CR>
+    nnoremap <silent> # :let wv=winsaveview()<CR>#:call winrestview(wv)<CR>
     " Redraw page and clear highlights
     noremap <silent> <C-l> :nohlsearch<CR><C-l>
 

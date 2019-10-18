@@ -1,7 +1,3 @@
-" This is a pretty minimal vim configuration, with sensible settings and a
-" (relatively) small number of core mappings for comfort, as well as some of my
-" most common leader mappings.
-
 set encoding=utf-8
 scriptencoding utf-8
 set ffs=unix
@@ -105,8 +101,6 @@ nnoremap & :&&<CR>
 xnoremap gx <Esc>`.``gvP``P
 nnoremap gs :s//\r/g<Left><Left><Left><Left><Left>
 vnoremap gs :s/\%V
-nnoremap <silent> * :let wv=winsaveview()<CR>*:call winrestview(wv)<CR>
-nnoremap <silent> "" :registers<CR>
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
 
