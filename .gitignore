@@ -1,5 +1,5 @@
 # vim-plug should be downloaded separately
-autoload/plug.vim
+autoload/plug.vim*
 
 # Temporary files created by vim
 tmp/
