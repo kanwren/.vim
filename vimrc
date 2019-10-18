@@ -32,15 +32,6 @@
         set diffopt+=internal,algorithm:patience
     endif
 
-" Colors and terminal settings
-    if &term =~ ".*-256color"
-        let &t_ti.="\e[1 q"
-        let &t_SI.="\e[5 q"
-        let &t_EI.="\e[1 q"
-        let &t_te.="\e[0 q"
-    endif
-    set background=dark
-
 " Buffers
     set hidden                           " allow working with buffers
     set autoread
@@ -420,22 +411,14 @@
 " Base conversion utilities (gb)
     vnoremap <Leader>he :call StrToHexCodes()<CR>
     vnoremap <Leader>hd :call HexCodesToStr()<CR>
-    nnoremap <Plug>(DecToBin) ciw<C-r>=printf('%b', <C-r>")<CR><Esc>:silent! call repeat#set("\<Plug>(DecToBin)", v:count)<CR>
-    nnoremap <Plug>(BinToDec) ciw<C-r>=0b<C-r>"<CR><Esc>:silent! call repeat#set("\<Plug>(BinToDec)", v:count)<CR>
-    vnoremap <Plug>(DecToBin) c<C-r>=printf('%b', <C-r>")<CR><Esc>:silent! call repeat#set("\<Plug>(DecToBin)", v:count)<CR>
-    vnoremap <Plug>(BinToDec) c<C-r>=0b<C-r>"<CR><Esc>:silent! call repeat#set("\<Plug>(BinToDec)", v:count)<CR>
-    nnoremap <Plug>(DecToHex) ciw<C-r>=printf('%x', <C-r>")<CR><Esc>:silent! call repeat#set("\<Plug>(DecToHex)", v:count)<CR>
-    nnoremap <Plug>(HexToDec) ciw<C-r>=0x<C-r>"<CR><Esc>:silent! call repeat#set("\<Plug>(HexToDec)", v:count)<CR>
-    vnoremap <Plug>(DecToHex) c<C-r>=printf('%x', <C-r>")<CR><Esc>:silent! call repeat#set("\<Plug>(DecToHex)", v:count)<CR>
-    vnoremap <Plug>(HexToDec) c<C-r>=0x<C-r>"<CR><Esc>:silent! call repeat#set("\<Plug>(HexToDec)", v:count)<CR>
-    nmap <silent> gbdb <Plug>(DecToBin)
-    nmap <silent> gbbd <Plug>(BinToDec)
-    vmap <silent> gbdb <Plug>(DecToBin)
-    vmap <silent> gbbd <Plug>(BinToDec)
-    nmap <silent> gbdh <Plug>(DecToHex)
-    nmap <silent> gbhd <Plug>(HexToDec)
-    vmap <silent> gbdh <Plug>(DecToHex)
-    vmap <silent> gbhd <Plug>(HexToDec)
+    nnoremap <silent> gbdb ciw<C-r>=printf('%b', <C-r>")<CR><Esc>
+    nnoremap <silent> gbbd ciw<C-r>=0b<C-r>"<CR><Esc>
+    vnoremap <silent> gbdb c<C-r>=printf('%b', <C-r>")<CR><Esc>
+    vnoremap <silent> gbbd c<C-r>=0b<C-r>"<CR><Esc>
+    nnoremap <silent> gbdh ciw<C-r>=printf('%x', <C-r>")<CR><Esc>
+    nnoremap <silent> gbhd ciw<C-r>=0x<C-r>"<CR><Esc>
+    vnoremap <silent> gbdh c<C-r>=printf('%x', <C-r>")<CR><Esc>
+    vnoremap <silent> gbhd c<C-r>=0x<C-r>"<CR><Esc>
 
 " fzf mappings (<Leader>f)
     " All files
@@ -535,6 +518,7 @@
         Plug 'junegunn/fzf.vim'
 
         " Interface/colorschemes
+        Plug 'rakr/vim-one'
         Plug 'arcticicestudio/nord-vim'
 
         " Text objects
@@ -607,12 +591,22 @@
     let vim_markdown_preview_use_xdg_open = 1
 " }}}
 
-" Colorscheme can come anywhere after highlighting autocommands
-    if &term =~ ".*-256color" && colors#exists('nord')
-        silent! colorscheme nord
+" Colors {{{
+    " Colors and terminal settings
+    if &term =~ ".*-256color"
+        let &t_ti.="\e[1 q"
+        let &t_SI.="\e[5 q"
+        let &t_EI.="\e[1 q"
+        let &t_te.="\e[0 q"
+    endif
+
+    if &term =~ ".*-256color" && colors#exists('one')
+        silent! colorscheme one
     else
         silent! colorscheme elflord
     endif
+    set background=dark
+" }}}
 
 " Local vimrc
     if !empty(glob('~/local.vimrc')) && filereadable(glob('~/local.vimrc'))
