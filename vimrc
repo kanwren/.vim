@@ -225,40 +225,6 @@
         endif
     endfunction
 
-    command! -bar Hexmode call ToggleHex()
-    function! ToggleHex() abort
-        " save values for modified and read-only, clear read-only flag for now
-        let l:modified = &mod
-        let l:oldreadonly = &readonly
-        let &readonly = 0
-        let l:oldmodifiable = &modifiable
-        let &modifiable = 1
-        if !exists("b:editHex") || !b:editHex
-            " save old options
-            let b:old_ft = &ft
-            let b:old_bin = &bin
-            " set new options
-            setlocal binary " make sure it overrides any textwidth, etc.
-            silent :edit " this will reload the file without trickeries
-            " (DOS line endings will be shown entirely)
-            let &ft = "xxd"
-            let b:edit_hex = 1
-            %!xxd
-        else
-            " restore old options
-            let &ft = b:old_ft
-            if !b:old_bin
-                setlocal nobinary
-            endif
-            let b:edit_hex = 0
-            %!xxd -r
-        endif
-        " restore old values for modified and read only state
-        let &mod = l:modified
-        let &readonly = l:oldreadonly
-        let &modifiable = l:oldmodifiable
-    endfunction
-
     function! StrToHexCodes() abort
         normal gvy
         let str = @"
@@ -282,7 +248,6 @@
         let @" = str
         normal gv"0P
     endfunction
-
 " }}}
 
 " Mappings {{{
@@ -557,6 +522,9 @@
 " markdown-preview
     let vim_markdown_preview_pandoc = 1
     let vim_markdown_preview_use_xdg_open = 1
+
+" Plugin settings
+    let g:sesh_dir = '~/.vim/sessions/'
 " }}}
 
 " Colors {{{
@@ -572,7 +540,7 @@
     else
         silent! colorscheme elflord
     endif
-    " set background=dark
+    set background=dark
 " }}}
 
 " Local vimrc
