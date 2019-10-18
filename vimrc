@@ -432,13 +432,14 @@
         " Functionality
         Plug 'tpope/vim-dispatch'                " Async dispatching
         Plug 'tpope/vim-fugitive'                " Git integration
-        Plug 'tpope/vim-eunuch'                  " File operations
         Plug 'airblade/vim-rooter'               " Automatically cd to project root
         Plug 'sheerun/vim-polyglot'              " Collection of language packs to rule them all
         Plug 'vimwiki/vimwiki'                   " Personal wiki for Vim
 
         " Utility
         Plug 'tpope/vim-surround'                " Mappings for inserting/changing/deleting surrounding characters/elements
+        Plug 'tpope/vim-eunuch'                  " File operations
+        Plug 'tpope/vim-abolish'                 " Smart substitution, spelling correction, etc.
         Plug 'tpope/vim-repeat'                  " Repeating more actions with .
         Plug 'tpope/vim-commentary'              " Easy commenting
         Plug 'tpope/vim-speeddating'             " Fix negative problem when incrementing dates
@@ -474,7 +475,7 @@
 " Netrw
     let g:netrw_banner=0
     " Default to thin view
-    let g:netrw_liststyle=1
+    let g:netrw_liststyle=3
 
 " Rooter
     let g:rooter_silent_chdir = 1
