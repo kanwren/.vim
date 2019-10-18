@@ -9,6 +9,7 @@ nnoremap <buffer> <F3> :! mupdf %<.pdf &<CR><CR>
 
 " Use "m" to surround with \[\]
 let b:surround_109 = "\\[ \r \\]"
+let b:surround_84 = "\\text{\r}"
 
 " These could also be abbreviations, but the space consumption doesn't quite
 " work and the delay isn't that annoying
