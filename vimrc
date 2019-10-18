@@ -184,33 +184,6 @@
         command! -range Y2J <line1>,<line2>!python -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin), sys.stdout)'
     endif
 
-" Session management
-    function! GetSessions(arglead, cmdline, cursorpos) abort
-        let paths = split(globpath('~/.vim', 'sessions/*.vim'), "\n")
-        let names = map(paths, 'fnamemodify(v:val, ":t:r")')
-        if empty(a:arglead)
-            return names
-        else
-            return filter(names, {idx, val -> len(val) >= len(a:arglead) && val[:len(a:arglead) - 1] ==# a:arglead})
-        endif
-    endfunction
-    " Save session
-    command! -bang -nargs=? -complete=customlist,GetSessions Save :call MkSession("<bang>", <f-args>)
-    function! MkSession(bang, ...) abort
-        if a:0 > 0
-            execute "mksession" . a:bang . " ~/.vim/sessions/" . a:1 . ".vim"
-            echo "Saved session to ~/.vim/sessions/" . a:1 . ".vim"
-        else
-            execute "mksession! ~/.vim/sessions/temp.vim"
-            echo "Saved session to ~/.vim/sessions/temp.vim"
-        endif
-    endfunction
-    " Restore session
-    command! -nargs=? -complete=customlist,GetSessions Restore :call SourceSession(<f-args>)
-    function! SourceSession(...) abort
-        execute "source ~/.vim/sessions/" . (a:0 > 0 ? a:1 : 'temp') . ".vim"
-    endfunction
-
 " Utility
     function! ClearRegisters() abort
         let regs = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-*+"'
@@ -360,11 +333,6 @@
     " Insert blank lines
     nnoremap <silent> <C-j> :<C-u>call append(line("."), repeat([''], v:count1))<CR>
     nnoremap <silent> <C-k> :<C-u>call append(line(".") - 1, repeat([''], v:count1))<CR>
-
-" Sessions
-    " Providing a count uses temp-<count>.vim, otherwise it just uses temp.vim
-    nnoremap <expr> \s ':<C-u>Save! ' . (v:count > 0 ? 'temp-' . v:count : 'temp') . '<CR>'
-    nnoremap <expr> \r ':<C-u>Restore ' . (v:count > 0 ? 'temp-' . v:count : 'temp') . '<CR>'
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
@@ -592,7 +560,6 @@
 " }}}
 
 " Colors {{{
-    " Colors and terminal settings
     if &term =~ ".*-256color"
         let &t_ti.="\e[1 q"
         let &t_SI.="\e[5 q"
@@ -605,7 +572,7 @@
     else
         silent! colorscheme elflord
     endif
-    set background=dark
+    " set background=dark
 " }}}
 
 " Local vimrc
