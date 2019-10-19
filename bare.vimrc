@@ -80,12 +80,12 @@ if has('autocmd')
                     \ | highlight Folded ctermbg=NONE
                     \ | highlight LineNr ctermbg=0 ctermfg=4
                     \ | highlight CursorLineNr ctermbg=0 ctermfg=15
+                    \ | highlight Todo ctermbg=1 ctermfg=15
+                    \ | highlight SpellBad cterm=underline ctermfg=red
     augroup END
 end
 
 " Basic commands
-command! WS :execute ':silent w !sudo tee % > /dev/null' | :edit!
-command! CD :cd %:h
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1 | nohlsearch
 command! GetThesaurus :!curl --create-dirs http://www.gutenberg.org/files/3202/files/mthesaur.txt -o ~/.vim/thesaurus/mthesaur.txt
 

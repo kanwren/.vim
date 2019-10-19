@@ -137,6 +137,7 @@
                         \ |     execute "normal! g`\""
                         \ | endif
             " Highlight trailing whitespace (except when typing at end of line)
+            autocmd BufRead     * match ExtraWhitespace /\s\+$/
             autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
             autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
             autocmd InsertLeave * match ExtraWhitespace /\s\+$/
@@ -154,8 +155,12 @@
                         \ | highlight CursorLineNr ctermbg=0 ctermfg=7
             " Highlight text width boundary boundary
             autocmd ColorScheme * highlight ColorColumn ctermbg=8
-            " Highlight TODO in intentionally annoying colors
+            " Highlight TODO and spelling mistakes in intentionally red
             autocmd ColorScheme * highlight Todo ctermbg=1 ctermfg=15
+            autocmd ColorScheme * highlight SpellBad cterm=underline ctermfg=red
+            " Highlight listchars and non-printable characters
+            autocmd ColorScheme * highlight SpecialKey ctermfg=4
+            autocmd ColorScheme * highlight NonText ctermfg=0
         augroup END
     endif
 " }}}
@@ -203,26 +208,6 @@
             call setline(n, repeat('-', float2nr(floor(pad))) . l . repeat('-', float2nr(ceil(pad))))
             let n += 1
         endwhile
-    endfunction
-
-    " nix-prefetch-git shortcut
-    command! -bar -nargs=+ NPG call Nix_Prefetch_Git(<f-args>)
-    function! Nix_Prefetch_Git(owner, repo, ...) abort
-        " Other fields: url, date, fetchSubmodules
-        let fields = ['rev', 'sha256']
-        let command = 'nix-prefetch-git git@github.com:' . a:owner . '/' . a:repo
-        if a:0 > 0
-            let command .= ' --rev ' . a:1
-        end
-        let command .= ' --quiet 2>/dev/null | grep -E "' . join(fields, '|')
-        let command .= '" | sed -E "s/\s*\"(.+)\": \"(.+)\",/\1 = \"\2\";/g"'
-        if $USER ==# 'root'
-            " If root, try to run command as login user instead
-            let logname = substitute(system('logname'), '\n', '', 'ge')
-            execute('read! ' . 'runuser -l ' . logname . " -c '" . command . "'")
-        else
-            execute('read! ' . command)
-        endif
     endfunction
 
     function! StrToHexCodes() abort
