@@ -8,7 +8,7 @@ if !exists('g:nix_prefetch_git_fields')
     let g:nix_prefetch_git_fields = ['rev', 'sha256']
 endif
 
-function! Nix_Prefetch_Git(owner, repo, ...) abort
+function! s:Nix_Prefetch_Git(owner, repo, ...) abort
     let command = 'nix-prefetch-git git@github.com:' . a:owner . '/' . a:repo
     if a:0 > 0
         let command .= ' --rev ' . a:1
@@ -24,5 +24,5 @@ function! Nix_Prefetch_Git(owner, repo, ...) abort
     endif
 endfunction
 
-command! -bar -nargs=+ NPG call Nix_Prefetch_Git(<f-args>)
+command! -bar -nargs=+ NPG call <SID>Nix_Prefetch_Git(<f-args>)
 
