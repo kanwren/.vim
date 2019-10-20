@@ -97,6 +97,12 @@
     set colorcolumn=+1
     set formatoptions=croqjln
 
+" Conceal settings
+    if has('conceal')
+        set concealcursor=inc
+        set conceallevel=2
+    endif
+
 " Searching
     set magic
     set noignorecase smartcase
@@ -510,8 +516,9 @@
     let vim_markdown_preview_pandoc = 1
     let vim_markdown_preview_use_xdg_open = 1
 
-" Plugin settings
+" personal plugin settings
     let g:sesh_dir = '~/.vim/sessions/'
+    let g:indent_guide_enabled = 0
 " }}}
 
 " Colors {{{
