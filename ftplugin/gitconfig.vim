@@ -1,1 +1,1 @@
-setlocal noexpandtab
+setlocal noexpandtab listchars+=tab:\ \ 
