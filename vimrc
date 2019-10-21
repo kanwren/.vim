@@ -97,12 +97,6 @@
     set colorcolumn=+1
     set formatoptions=croqjln
 
-" Conceal settings
-    if has('conceal')
-        set concealcursor=inc
-        set conceallevel=2
-    endif
-
 " Searching
     set magic
     set noignorecase smartcase
@@ -440,7 +434,7 @@
         Plug 'jiangmiao/auto-pairs', { 'for': [ 'rust', 'java', 'c', 'cpp', 'javascript', 'typescript' ] }
 
         " Fuzzy finding
-        Plug 'junegunn/fzf'
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
 
         " Interface/colorschemes
@@ -466,7 +460,6 @@
 " Plugin settings {{{
 " Netrw
     let g:netrw_banner=0
-    " Default to thin view
     let g:netrw_liststyle=3
 
 " Rooter
@@ -511,6 +504,13 @@
 
     let g:haskell_indent_if = 2
     let g:haskell_indent_in = 0
+
+    " Highlighting options not specific to haskell-vim
+    let g:hs_allow_hash_operator = 1
+    let g:hs_highlight_boolean = 1
+    let g:hs_highlight_debug = 1
+    let g:hs_highlight_types = 1
+    let g:hs_highlight_more_types = 1
 
 " markdown-preview
     let vim_markdown_preview_pandoc = 1
