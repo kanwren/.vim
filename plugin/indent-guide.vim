@@ -12,6 +12,7 @@ if !exists('g:indent_guide_enabled')
 endif
 
 function! s:ShowIndentGuides()
+    setlocal concealcursor=inc conceallevel=0
     let indent = &l:shiftwidth != 0 ? &l:shiftwidth : &l:tabstop
     let max = exists('g:indent_guide_depth') ? g:indent_guide_depth : &l:textwidth
     for i in range(indent, max, indent)
