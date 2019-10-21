@@ -27,4 +27,13 @@ inoremap <buffer> ,( \left(\right)<Esc>F\i
 inoremap <buffer> ,[ \left[\right]<Esc>F\i
 
 inoremap <buffer> ,bmat \begin{bmatrix*}[r]\end{bmatrix*}<Esc>F\i
-inoremap <buffer> ,rec \frac{1}{}<Left>
+
+function! s:ElongateSurrounding(start, end, surrounds) abort
+    let left = a:surrounds[0]
+    let right = a:surrounds[1]
+    execute a:start . ',' . a:end . 's/\ze' . right . '/\\right/g'
+    execute a:start . ',' . a:end . 's/\ze' . left . '/\\left/g'
+endfunction
+
+command! -range -nargs=1 Elongate call <SID>ElongateSurrounding(<line1>, <line2>, <f-args>)
+
