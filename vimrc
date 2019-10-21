@@ -146,7 +146,7 @@
         augroup highlight_group
             autocmd!
             " Highlight trailing whitespace
-            autocmd ColorScheme * highlight ExtraWhitespace ctermbg=12
+            autocmd ColorScheme * highlight ExtraWhitespace ctermbg=4
             " Left column
             autocmd ColorScheme *
                         \   highlight FoldColumn ctermbg=NONE
@@ -156,7 +156,7 @@
             " Highlight text width boundary boundary
             autocmd ColorScheme * highlight ColorColumn ctermbg=8
             " Highlight TODO and spelling mistakes in intentionally red
-            autocmd ColorScheme * highlight Todo ctermbg=1 ctermfg=15
+            autocmd ColorScheme * highlight Todo ctermbg=1 ctermfg=7
             autocmd ColorScheme * highlight SpellBad cterm=underline ctermfg=red
             " Highlight listchars and non-printable characters
             autocmd ColorScheme * highlight SpecialKey ctermfg=4
@@ -259,19 +259,19 @@
     noremap Y y$
     " Make & keep the last flags used
     nnoremap & :&&<CR>
-    " Make temporary unlisted scratch buffer
-    nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
     " Search word underneath cursor/selection but don't jump
     nnoremap <silent> * :let wv=winsaveview()<CR>*:call winrestview(wv)<CR>
     nnoremap <silent> # :let wv=winsaveview()<CR>#:call winrestview(wv)<CR>
     " Redraw page and clear highlights
     noremap <silent> <C-l> :nohlsearch<CR><C-l>
+    " Make temporary unlisted scratch buffer
+    nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
 
 " Editing
     " Split current line by provided regex (\zs or \ze to preserve separators)
     nnoremap gs :s//\r/g<Left><Left><Left><Left><Left>
     " Start a visual substitute
-    vnoremap gs :s/\%V
+    xnoremap gs :s/\%V
     " Sort visual selection
     vnoremap <silent> <Leader>vs :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
     " Convenient semicolon insertion
@@ -287,7 +287,7 @@
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
-    nnoremap <silent> <Leader><Tab> :let wv=winsaveview()<CR>:%s/\s\+$//e \| call histdel("/", -1) \| nohlsearch \| retab<CR>:call winrestview(wv)<CR>
+    nnoremap <silent> <Leader><Tab> :let wv=winsaveview()<CR>:keeppatterns %s/\s\+$//e \| nohlsearch \| retab<CR>:call winrestview(wv)<CR>
     " Add blank line below/above line/selection, keep cursor in same position (can take count)
     nnoremap <silent> <Leader>n :<C-u>call append(line("."), repeat([''], v:count1)) \| call append(line(".") - 1, repeat([''], v:count1))<CR>
     vnoremap <silent> <Leader>n :<C-u>call append(line("'<") - 1, repeat([''], v:count1)) \| call append(line("'>"), repeat([''], v:count1))<CR>

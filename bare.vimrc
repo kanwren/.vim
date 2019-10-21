@@ -71,23 +71,11 @@ if has('autocmd')
     augroup highlight_group
         autocmd!
         autocmd ColorScheme *
-                    \   highlight ExtraWhitespace ctermbg=12
-                    \ | highlight ColorColumn ctermbg=8
-                    \ | highlight StatusLine ctermfg=15 ctermbg=0
-                    \ | highlight StatusLineNC ctermfg=7 ctermbg=0
-                    \ | highlight VertSplit ctermfg=0
-                    \ | highlight FoldColumn ctermbg=NONE
-                    \ | highlight Folded ctermbg=NONE
-                    \ | highlight LineNr ctermbg=0 ctermfg=4
-                    \ | highlight CursorLineNr ctermbg=0 ctermfg=15
-                    \ | highlight Todo ctermbg=1 ctermfg=15
-                    \ | highlight SpellBad cterm=underline ctermfg=red
+                    \   highlight ExtraWhitespace ctermbg=4
+                    \ | highlight LineNr ctermbg=NONE ctermfg=4
+                    \ | highlight CursorLineNr ctermbg=0 ctermfg=7
     augroup END
 end
-
-" Basic commands
-command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1 | nohlsearch
-command! GetThesaurus :!curl --create-dirs http://www.gutenberg.org/files/3202/files/mthesaur.txt -o ~/.vim/thesaurus/mthesaur.txt
 
 " Basic mappings
 " Warning: all of these mappings override default behavior in some way
@@ -100,7 +88,7 @@ noremap Y y$
 nnoremap & :&&<CR>
 xnoremap gx <Esc>`.``gvP``P
 nnoremap gs :s//\r/g<Left><Left><Left><Left><Left>
-vnoremap gs :s/\%V
+xnoremap gs :s/\%V
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
 
@@ -109,49 +97,13 @@ map <Space> <nop>
 map <S-Space> <Space>
 let mapleader=" "
 
-nnoremap <Leader><Tab> :let wv=winsaveview()<CR>:%s/\s\+$//e \| call histdel("/", -1) \| nohlsearch \| retab<CR>:call winrestview(wv)<CR>
+nnoremap <Leader><Tab> :%s/\s\+$//e \| call histdel("/", -1) \| nohlsearch \| retab<CR>
 vnoremap <silent> <Leader>vs :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
 nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
 vnoremap <Leader>e <Esc>:execute 'normal gv' . (abs(getpos("'>")[2] + getpos("'>")[3] - getpos("'<")[2] - getpos("'<")[3]) + 1) . 'I '<CR>
-nnoremap <silent> <Leader>r :let r1 = substitute(nr2char(getchar()), "'", "\"", "") \| let r2 = substitute(nr2char(getchar()), "'", "\"", "")
-            \ \| execute 'let @' . r2 . '=@' . r1 \| echo "Copied @" . r1 . " to @" . r2<CR>
-nnoremap <Leader><Leader>es :edit ~/scratch<CR>
-
-function s:ChangeIndent() abort
-    let i=input('ts=sts=sw=')
-    if i
-        execute 'setlocal tabstop=' . i . ' softtabstop=' . i . ' shiftwidth=' . i
-    endif
-    redraw
-    echo 'ts=' . &tabstop . ', sts=' . &softtabstop . ', sw='  . &shiftwidth . ', et='  . &expandtab
-endfunction
-nnoremap <Leader>i :call <SID>ChangeIndent()<CR>
 
 " Temporary file navigation setup
 nnoremap <Leader>f :find **/
-
-" Quick vim-plug setup
-function! InstallVimPlug() abort
-    if empty(glob('~/.vim/autoload/plug.vim'))
-        let url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        if executable('curl')
-            call system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs ' . url)
-        elseif executable('wget')
-            call system('mkdir -p ~/.vim/autoload && wget -O ~/.vim/autoload/plug.vim ' . url)
-        else
-            echoerr 'curl or wget are required to install vim-plug'
-        endif
-        echo 'vim-plug installation complete'
-    else
-        echo 'vim-plug is already installed'
-    endif
-    if empty(glob('~/.vim/plugged'))
-        let make_bundle = input('~/.vim/plugged plugin directory not found. create? (y/n) ', '')
-        if make_bundle =~? '^y'
-            call mkdir(expand('~/.vim/plugged'), 'p')
-        endif
-    endif
-endfunction
 
 " Plugins
 runtime macros/matchit.vim
@@ -167,4 +119,16 @@ silent! colorscheme elflord
 if !empty(glob('~/local.vimrc')) && filereadable(glob('~/local.vimrc'))
     execute 'source ' . glob('~/local.vimrc')
 end
+
+" Quick vim-plug setup
+function! InstallVimPlug() abort
+    if executable('curl')
+        call system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    elseif executable('wget')
+        call system('mkdir -p ~/.vim/autoload && wget -O ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    else
+        echoerr 'curl or wget are required to install vim-plug'
+    endif
+    call mkdir(expand('~/.vim/plugged'), 'p')
+endfunction
 
