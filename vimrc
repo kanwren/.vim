@@ -151,7 +151,7 @@
             autocmd ColorScheme *
                         \   highlight FoldColumn ctermbg=NONE
                         \ | highlight Folded ctermbg=NONE
-                        \ | highlight LineNr ctermbg=NONE ctermfg=4
+                        \ | highlight LineNr ctermbg=NONE ctermfg=6
                         \ | highlight CursorLineNr ctermbg=0 ctermfg=7
             " Highlight text width boundary boundary
             autocmd ColorScheme * highlight ColorColumn ctermbg=8
@@ -449,7 +449,7 @@
         Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
         Plug 'rust-lang/rust.vim', { 'for': 'rust' }
         Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-        Plug 'nprindle/lc3.vim', { 'for': 'lc3' }
+        Plug 'nprindle/lc3.vim', { 'for': ['asm', 'lc3'] }
         " Plug 'lervag/vimtex', { 'for': 'tex' }
         Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
 

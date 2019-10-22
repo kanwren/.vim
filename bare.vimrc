@@ -72,7 +72,7 @@ if has('autocmd')
         autocmd!
         autocmd ColorScheme *
                     \   highlight ExtraWhitespace ctermbg=4
-                    \ | highlight LineNr ctermbg=NONE ctermfg=4
+                    \ | highlight LineNr ctermbg=NONE ctermfg=6
                     \ | highlight CursorLineNr ctermbg=0 ctermfg=7
     augroup END
 end
