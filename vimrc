@@ -350,12 +350,11 @@
     nnoremap <Leader>ft :Tags<CR>
 
 " Fugitive mappings (<Leader>g)
-    nnoremap <Leader>gs  :Gstatus<CR>
-    nnoremap <Leader>gpl :Gpull<CR>
-    nnoremap <Leader>gps :Gpush<CR>
-    nnoremap <Leader>gw  :Gwrite<CR>
-    nnoremap <Leader>gc  :Gcommit<CR>
-    nnoremap <Leader>gd  :Gvdiff<CR>
+    nnoremap <Leader>GS :Gstatus<CR>
+    nnoremap <Leader>GW :Gwrite<CR>
+    nnoremap <Leader>GC :Gcommit<CR>
+    nnoremap <Leader>GD :Gvdiffsplit!<CR>
+    nnoremap <Leader>GL :Glog!<CR>
 
 " Misc
     " Global scratch buffer
@@ -517,7 +516,6 @@
     let vim_markdown_preview_use_xdg_open = 1
 
 " personal plugin settings
-    let g:sesh_dir = '~/.vim/sessions/'
     let g:indent_guide_enabled = 0
 " }}}
 
