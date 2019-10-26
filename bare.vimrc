@@ -27,7 +27,7 @@ endif
 set history=1000 undolevels=1000
 set hidden autoread noconfirm
 set noerrorbells visualbell t_vb=
-set mouse=a
+set mouse-=a
 set lazyredraw
 set number relativenumber
 set splitbelow splitright
@@ -97,7 +97,7 @@ map <Space> <nop>
 map <S-Space> <Space>
 let mapleader=" "
 
-nnoremap <Leader><Tab> :%s/\s\+$//e \| call histdel("/", -1) \| nohlsearch \| retab<CR>
+nnoremap <Tab> :%s/\s\+$//e \| call histdel("/", -1) \| nohlsearch \| retab<CR>
 vnoremap <silent> <Leader>vs :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
 nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
 vnoremap <Leader>e <Esc>:execute 'normal gv' . (abs(getpos("'>")[2] + getpos("'>")[3] - getpos("'<")[2] - getpos("'<")[3]) + 1) . 'I '<CR>

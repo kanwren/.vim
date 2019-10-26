@@ -47,7 +47,7 @@
     set visualbell t_vb=
 
 " Navigation
-    set mouse=a
+    set mouse-=a
     set scrolloff=0
     set tags=tags;/
 
@@ -287,7 +287,7 @@
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
-    nnoremap <silent> <Leader><Tab> :let wv=winsaveview()<CR>:keeppatterns %s/\s\+$//e \| nohlsearch \| retab<CR>:call winrestview(wv)<CR>
+    nnoremap <silent> <Tab> :let wv=winsaveview()<CR>:keeppatterns %s/\s\+$//e \| nohlsearch \| retab<CR>:call winrestview(wv)<CR>
     " Add blank line below/above line/selection, keep cursor in same position (can take count)
     nnoremap <silent> <Leader>n :<C-u>call append(line("."), repeat([''], v:count1)) \| call append(line(".") - 1, repeat([''], v:count1))<CR>
     vnoremap <silent> <Leader>n :<C-u>call append(line("'<") - 1, repeat([''], v:count1)) \| call append(line("'>"), repeat([''], v:count1))<CR>
