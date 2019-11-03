@@ -28,6 +28,7 @@ set history=1000 undolevels=1000
 set hidden autoread noconfirm
 set noerrorbells visualbell t_vb=
 set mouse-=a
+set scrolloff=0
 set lazyredraw
 set number relativenumber
 set splitbelow splitright
