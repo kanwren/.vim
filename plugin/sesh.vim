@@ -20,7 +20,7 @@ function! s:GetSessions(arglead, cmdline, cursorpos) abort
 endfunction
 
 " Saving a session
-function! MkSession(bang, ...) abort
+function! s:MkSession(bang, ...) abort
     if a:0 > 0
         execute "mksession" . a:bang . " " . g:sesh_dir . '/' . a:1 . ".vim"
         echo "Saved session to " . g:sesh_dir . '/' . a:1 . ".vim"
@@ -30,14 +30,23 @@ function! MkSession(bang, ...) abort
     endif
 endfunction
 
-command! -bang -nargs=? -complete=customlist,<SID>GetSessions Save :call MkSession("<bang>", <f-args>)
+command! -bang -nargs=? -complete=customlist,<SID>GetSessions Save :call <SID>MkSession("<bang>", <f-args>)
 
 " Restoring a session
-function! SourceSession(...) abort
+function! s:SourceSession(...) abort
     execute "source " . g:sesh_dir . "/" . (a:0 > 0 ? a:1 : 'temp') . ".vim"
 endfunction
 
-command! -nargs=? -complete=customlist,<SID>GetSessions Restore :call SourceSession(<f-args>)
+command! -nargs=? -complete=customlist,<SID>GetSessions Restore :call <SID>SourceSession(<f-args>)
+
+" Removing a session
+function! s:RemoveSession(...) abort
+    for name in a:000
+        call system("rm " . g:sesh_dir . "/" . name . ".vim")
+    endfor
+endfunction
+
+command! -nargs=? -complete=customlist,<SID>GetSessions RemoveSession :call <SID>RemoveSession(<f-args>)
 
 " Mappings
 
