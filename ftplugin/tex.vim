@@ -31,8 +31,8 @@ inoremap <buffer> ,bmat \begin{bmatrix*}[r]\end{bmatrix*}<Esc>F\i
 function! s:ElongateSurrounding(start, end, surrounds) abort
     let left = a:surrounds[0]
     let right = a:surrounds[1]
-    execute a:start . ',' . a:end . 's/\ze' . right . '/\\right/g'
-    execute a:start . ',' . a:end . 's/\ze' . left . '/\\left/g'
+    execute a:start . ',' . a:end . 's/\ze\(\\right\)\@<!' . right . '/\\right/ge'
+    execute a:start . ',' . a:end . 's/\ze\(\\left\)\@<!' . left . '/\\left/ge'
 endfunction
 
 command! -range -nargs=1 Elongate call <SID>ElongateSurrounding(<line1>, <line2>, <f-args>)
