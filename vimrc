@@ -520,14 +520,14 @@
 " }}}
 
 " Colors {{{
-    if &term =~ ".*-256color"
+    if colors#has256()
         let &t_ti.="\e[1 q"
         let &t_SI.="\e[5 q"
         let &t_EI.="\e[1 q"
         let &t_te.="\e[0 q"
     endif
 
-    if &term =~ ".*-256color" && colors#exists('one')
+    if colors#has256() && colors#exists('one')
         silent! colorscheme one
     else
         silent! colorscheme elflord

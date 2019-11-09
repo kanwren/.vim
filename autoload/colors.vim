@@ -1,3 +1,7 @@
+function! colors#has256() abort
+    return &term =~ '.*-256-color\|alacritty'
+endfunction
+
 function! colors#colorlist() abort
     let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
     return map(paths, 'fnamemodify(v:val, ":t:r")')
