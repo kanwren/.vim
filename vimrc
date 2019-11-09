@@ -160,7 +160,7 @@
             autocmd ColorScheme * highlight SpellBad cterm=underline ctermfg=red
             " Highlight listchars and non-printable characters
             autocmd ColorScheme * highlight SpecialKey ctermfg=4
-            autocmd ColorScheme * highlight NonText ctermfg=0
+            autocmd ColorScheme * highlight NonText ctermfg=4
         augroup END
     endif
 " }}}
@@ -266,6 +266,8 @@
     noremap <silent> <C-l> :nohlsearch<CR><C-l>
     " Make temporary unlisted scratch buffer
     nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
+    " Add easy shortcut for git ls-files
+    cnoremap ``g `git ls-files `<Left>
 
 " Editing
     " Split current line by provided regex (\zs or \ze to preserve separators)
@@ -273,7 +275,7 @@
     " Start a visual substitute
     xnoremap gs :s/\%V
     " Sort visual selection
-    vnoremap <silent> <Leader>vs :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
+    vnoremap <silent> <Leader>s :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
     " Convenient semicolon insertion
     nnoremap <silent> <Leader>; :let wv=winsaveview()<CR>:s/[^;]*\zs\ze\s*$/;/e \| nohlsearch<CR>:call winrestview(wv)<CR>
     vnoremap <silent> <Leader>; :let wv=winsaveview()<CR>:s/\v(\s*$)(;)@<!/;/g \| nohlsearch<CR>:call winrestview(wv)<CR>
@@ -287,7 +289,9 @@
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
-    nnoremap <silent> <Tab> :let wv=winsaveview()<CR>:keeppatterns %s/\s\+$//e \| nohlsearch \| retab<CR>:call winrestview(wv)<CR>
+    nnoremap <silent> <Leader><Tab> :let wv=winsaveview()<CR>:keeppatterns %s/\s\+$//e \| nohlsearch \| retab<CR>:call winrestview(wv)<CR>
+    " Remove CR line endings
+    nnoremap <silent> <Leader><CR> :%s/\r//g
     " Add blank line below/above line/selection, keep cursor in same position (can take count)
     nnoremap <silent> <Leader>n :<C-u>call append(line("."), repeat([''], v:count1)) \| call append(line(".") - 1, repeat([''], v:count1))<CR>
     vnoremap <silent> <Leader>n :<C-u>call append(line("'<") - 1, repeat([''], v:count1)) \| call append(line("'>"), repeat([''], v:count1))<CR>
@@ -312,10 +316,10 @@
 
 " Quick settings changes
     " .vimrc editing/sourcing
-    nnoremap <Leader><Leader>ev :edit $MYVIMRC<CR>
-    nnoremap <Leader><Leader>sv :source $MYVIMRC<CR>
+    nnoremap <Leader>ve :edit $MYVIMRC<CR>
+    nnoremap <Leader>vs :source $MYVIMRC<CR>
     " Filetype ftplugin editing
-    nnoremap <Leader><Leader>ef :edit ~/.vim/ftplugin/<C-r>=&filetype<CR>.vim<CR>
+    nnoremap <Leader>vf :edit ~/.vim/ftplugin/<C-r>=&filetype<CR>.vim<CR>
     " Change indent level on the fly
     function s:ChangeIndent() abort
         let i=input('ts=sts=sw=')
@@ -340,10 +344,10 @@
     vnoremap <silent> gbhd c<C-r>=0x<C-r>"<CR><Esc>
 
 " fzf mappings (<Leader>f)
-    " All files
+    " Search all git ls-files files
+    nnoremap <Leader><Leader> :GFiles<CR>
+    " Search all files
     nnoremap <Leader>ff :Files<CR>
-    " All git ls-files files
-    nnoremap <Leader>fg :GFiles<CR>
     " Results of an ag search
     nnoremap <Leader>fa :Ag<Space>
     " Tags in project
@@ -355,10 +359,6 @@
     nnoremap <Leader>GC :Gcommit<CR>
     nnoremap <Leader>GD :Gvdiffsplit!<CR>
     nnoremap <Leader>GL :Glog!<CR>
-
-" Misc
-    " Global scratch buffer
-    nnoremap <Leader><Leader>es :edit ~/scratch<CR>
 "}}}
 
 " Abbreviations {{{
