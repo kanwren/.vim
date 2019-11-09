@@ -3,7 +3,7 @@ scriptencoding utf-8
 set ffs=unix
 filetype plugin indent on
 if has('syntax') && (!exists('syntax_on') || !syntax_on)
-        syntax on
+    syntax on
 endif
 
 " Uncomment if backups are okay

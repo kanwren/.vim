@@ -7,7 +7,7 @@
     filetype plugin indent on
     " Prevent highlighting from changing when re-sourcing vimrc
     if has('syntax') && (!exists('syntax_on') || !syntax_on)
-            syntax on
+        syntax on
     endif
 
 " Backups
