@@ -5,10 +5,10 @@
     set ffs=unix
     " Enable filetype detection
     filetype plugin indent on
-    " Prevent highlighting from changing when resourcing vimrc
-    if !syntax_on
-        syntax on
-    end
+    " Prevent highlighting from changing when re-sourcing vimrc
+    if has('syntax') && (!exists('syntax_on') || !syntax_on)
+            syntax on
+    endif
 
 " Backups
     set swapfile directory^=~/.vim/tmp//

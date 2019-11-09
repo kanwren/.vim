@@ -2,7 +2,9 @@ set encoding=utf-8
 scriptencoding utf-8
 set ffs=unix
 filetype plugin indent on
-if !syntax_on | syntax on | end
+if has('syntax') && (!exists('syntax_on') || !syntax_on)
+        syntax on
+endif
 
 " Uncomment if backups are okay
 " set swapfile directory^=~/.vim/tmp//
