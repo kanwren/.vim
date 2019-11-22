@@ -62,6 +62,10 @@ set nospell spelllang=en_us
 
 set timeout timeoutlen=3000 ttimeout ttimeoutlen=0
 
+" Commands
+command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1 | nohlsearch
+
+" Autocommands
 if has('autocmd')
     augroup general_group
         autocmd!
@@ -94,6 +98,7 @@ nnoremap gs :s//\r/g<Left><Left><Left><Left><Left>
 xnoremap gs :s/\%V
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
+cnoremap ``g `git ls-files `<Left>
 
 " Leader mappings
 map <Space> <nop>

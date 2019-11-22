@@ -237,10 +237,6 @@
 
 " Mappings {{{
 
-" Command line mappings
-    " Strip whitespace when using <C-r><C-l>
-    cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
-
 " Leader configuration
     map <Space> <nop>
     map <S-Space> <Space>
@@ -264,10 +260,12 @@
     nnoremap <silent> # :let wv=winsaveview()<CR>#:call winrestview(wv)<CR>
     " Redraw page and clear highlights
     noremap <silent> <C-l> :nohlsearch<CR><C-l>
-    " Make temporary unlisted scratch buffer
-    nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
+    " Strip whitespace when using <C-r><C-l>
+    cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
     " Add easy shortcut for git ls-files
     cnoremap ``g `git ls-files `<Left>
+    " Make temporary unlisted scratch buffer
+    nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
 
 " Editing
     " Split current line by provided regex (\zs or \ze to preserve separators)
@@ -281,8 +279,6 @@
     vnoremap <silent> <Leader>; :let wv=winsaveview()<CR>:s/\v(\s*$)(;)@<!/;/g \| nohlsearch<CR>:call winrestview(wv)<CR>
     " Interactive alignment
     vnoremap gz :LiveEasyAlign<CR>
-    " Prompt for regex to align on
-    vnoremap <Leader>a :EasyAlign //<Left>
     " Insert blank lines
     nnoremap <silent> <C-j> :<C-u>call append(line("."), repeat([''], v:count1))<CR>
     nnoremap <silent> <C-k> :<C-u>call append(line(".") - 1, repeat([''], v:count1))<CR>
@@ -332,8 +328,6 @@
     nnoremap <Leader>i :call <SID>ChangeIndent()<CR>
 
 " Base conversion utilities (gb)
-    vnoremap <Leader>he :call StrToHexCodes()<CR>
-    vnoremap <Leader>hd :call HexCodesToStr()<CR>
     nnoremap <silent> gbdb ciw<C-r>=printf('%b', <C-r>")<CR><Esc>
     nnoremap <silent> gbbd ciw<C-r>=0b<C-r>"<CR><Esc>
     vnoremap <silent> gbdb c<C-r>=printf('%b', <C-r>")<CR><Esc>
@@ -354,11 +348,9 @@
     nnoremap <Leader>ft :Tags<CR>
 
 " Fugitive mappings (<Leader>g)
-    nnoremap <Leader>GS :Gstatus<CR>
-    nnoremap <Leader>GW :Gwrite<CR>
-    nnoremap <Leader>GC :Gcommit<CR>
-    nnoremap <Leader>GD :Gvdiffsplit!<CR>
-    nnoremap <Leader>GL :Glog!<CR>
+    nnoremap <Leader>gs :Gstatus<CR>
+    nnoremap <Leader>gd :Gvdiffsplit!<CR>
+    nnoremap <Leader>gl :Glog!<CR>
 "}}}
 
 " Abbreviations {{{
@@ -368,17 +360,21 @@
     iabbrev x09 <C-r>='0123456789'<CR>
 
 " Date/time abbreviations
-    " 2018-09-15
-    iabbrev <expr> xymd strftime("%Y-%m-%d")
-    " Sat 15 Sep 2018
-    iabbrev <expr> xdate strftime("%a %d %b %Y")
-    " 23:31
-    iabbrev <expr> xtime strftime("%H:%M")
-    " 2018-09-15T23:31:54
-    iabbrev <expr> xiso strftime("%Y-%m-%dT%H:%M:%S")
+    if exists('*strftime')
+        " 2018-09-15
+        iabbrev <expr> xymd strftime("%Y-%m-%d")
+        " Sat 15 Sep 2018
+        iabbrev <expr> xdate strftime("%a %d %b %Y")
+        " 23:31
+        iabbrev <expr> xtime strftime("%H:%M")
+        " 2018-09-15T23:31:54
+        iabbrev <expr> xiso strftime("%Y-%m-%dT%H:%M:%S")
+    endif
 
 " This is so sad, Vim play Despacito
-    iabbrev Despacito <Esc>:!xdg-open https://youtu.be/kJQP7kiw5Fk?t=83<CR>
+    if executable('xdg-open')
+        iabbrev Despacito <Esc>:!xdg-open https://youtu.be/kJQP7kiw5Fk?t=83<CR>
+    endif
 " }}}
 
 " Plugins {{{
