@@ -9,6 +9,8 @@
     if has('syntax') && (!exists('syntax_on') || !syntax_on)
         syntax on
     endif
+    " Allow project-specific vimrcs
+    set exrc
 
 " Backups
     set swapfile directory^=~/.vim/tmp//
@@ -535,5 +537,7 @@
     if !empty(glob('~/local.vimrc')) && filereadable(glob('~/local.vimrc'))
         execute 'source ' . glob('~/local.vimrc')
     end
+
+set secure
 
 " vim:foldmethod=marker
