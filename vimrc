@@ -445,10 +445,14 @@
         " Language-specific plugins
         Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
         Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+        " Typescript/Javascript
         Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-        Plug 'nprindle/lc3.vim', { 'for': ['asm', 'lc3'] }
+        Plug 'jason0x43/vim-js-indent', { 'for': [ 'javascript', 'typescript' ] }
+        " Markdowns, etc.
         " Plug 'lervag/vimtex', { 'for': 'tex' }
         Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
+        " Misc
+        Plug 'nprindle/lc3.vim', { 'for': ['asm', 'lc3'] }
 
         call plug#end()
     endif
