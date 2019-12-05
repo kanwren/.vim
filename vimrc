@@ -431,7 +431,7 @@
         Plug 'jiangmiao/auto-pairs', { 'for': [ 'rust', 'java', 'c', 'cpp', 'javascript', 'typescript' ] }
 
         " Fuzzy finding
-        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
         Plug 'junegunn/fzf.vim'
 
         " Interface/colorschemes
@@ -453,6 +453,7 @@
         Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
         " Misc
         Plug 'nprindle/lc3.vim', { 'for': ['asm', 'lc3'] }
+        Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 
         call plug#end()
     endif
