@@ -445,6 +445,7 @@
         " Language-specific plugins
         Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
         Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+        Plug 'LnL7/vim-nix', { 'for': 'nix' }
         " Typescript/Javascript
         Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
         Plug 'jason0x43/vim-js-indent', { 'for': [ 'javascript', 'typescript' ] }
