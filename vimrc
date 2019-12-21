@@ -13,16 +13,16 @@
     set exrc
 
 " Backups
-    set swapfile directory^=~/.vim/tmp//
+    set swapfile directory=~/.vim/tmp//
     set backup writebackup backupcopy=auto
     " This patch fixes a bug to make Vim respect // for backupdir
     if has("patch-8.1.0251")
-        set backupdir^=~/.vim/backup//
+        set backupdir=~/.vim/backup//
     else
-        set backupdir^=~/.vim/backup
+        set backupdir=~/.vim/backup/
     endif
     if has('persistent_undo')
-        set undofile undodir^=~/.vim/undo//
+        set undofile undodir=~/.vim/undo//
         if !isdirectory(&undodir) | call mkdir(&undodir, 'p') | endif
     endif
     for d in [&directory, &backupdir]
