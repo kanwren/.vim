@@ -39,6 +39,7 @@
     set autoread
     set noconfirm                        " fail, don't ask to save
     set modeline modelines=1             " use one line to tell vim how to read the buffer
+    set nofixendofline                   " don't automatically insert newlines
 
 " History
     set history=1000
