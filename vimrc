@@ -341,8 +341,10 @@
     vnoremap <silent> gbhd c<C-r>=0x<C-r>"<CR><Esc>
 
 " fzf mappings (<Leader>f)
+    " Use GFiles if in git repo, or Files otherwise
+    nnoremap <expr> <Leader><Leader> ':' . (utils#in_git_repo() ? 'G' : '') . 'Files<CR>'
     " Search all git ls-files files
-    nnoremap <Leader><Leader> :GFiles<CR>
+    nnoremap <Leader>fg :GFiles<CR>
     " Search all files
     nnoremap <Leader>ff :Files<CR>
     " Results of an ag search
