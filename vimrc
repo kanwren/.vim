@@ -74,9 +74,11 @@
 
 " Editing
     set noinsertmode                     " just in case
-    set clipboard=unnamed
-    if has('unnamedplus')
-        set clipboard+=unnamedplus
+    if has('clipboard')
+        set clipboard=unnamed
+        if has('unnamedplus')
+            set clipboard+=unnamedplus
+        endif
     endif
     set virtualedit=all                  " allow editing past the ends of lines
     set nojoinspaces                     " never two spaces after sentence
