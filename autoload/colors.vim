@@ -1,5 +1,5 @@
 function! colors#has256() abort
-    return &term =~ '.*-256-\=color\|alacritty'
+    return &term =~ '.*-256-\=color\|alacritty\|xterm-kitty'
 endfunction
 
 function! colors#colorlist() abort
