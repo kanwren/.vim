@@ -238,6 +238,17 @@
         let @" = str
         normal gv"0P
     endfunction
+
+    function! s:GetSnippets(arglead, cmdline, cursorpos) abort
+        let paths = split(glob('~/.vim/snippets/*.txt'), "\n")
+        let names = map(paths, 'fnamemodify(v:val, ":t:r")')
+        if empty(a:arglead)
+            return names
+        else
+            return filter(names, {idx, val -> len(val) >= len(a:arglead) && val[:len(a:arglead) - 1] ==# a:arglead})
+        endif
+    endfunction
+    command! -bang -nargs=1 -complete=customlist,<SID>GetSnippets ReadSnippet execute 'read ~/.vim/snippets/' . <q-args> . '.txt'
 " }}}
 
 " Mappings {{{
