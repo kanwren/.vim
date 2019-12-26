@@ -441,11 +441,6 @@
 
         " Interface/colorschemes
         Plug 'rakr/vim-one'
-        Plug 'arcticicestudio/nord-vim'
-
-        " Text objects
-        Plug 'kana/vim-textobj-user'
-        Plug 'kana/vim-textobj-function'         " Java/python/vim functions
 
         " Language-specific plugins
         Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
