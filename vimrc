@@ -290,14 +290,8 @@
     xnoremap gs :s/\%V
     " Sort visual selection
     vnoremap <silent> <Leader>s :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
-    " Convenient semicolon insertion
-    nnoremap <silent> <Leader>; :let wv=winsaveview()<CR>:s/[^;]*\zs\ze\s*$/;/e \| nohlsearch<CR>:call winrestview(wv)<CR>
-    vnoremap <silent> <Leader>; :let wv=winsaveview()<CR>:s/\v(\s*$)(;)@<!/;/g \| nohlsearch<CR>:call winrestview(wv)<CR>
     " Interactive alignment
     vnoremap gz :LiveEasyAlign<CR>
-    " Insert blank lines
-    nnoremap <silent> <C-j> :<C-u>call append(line("."), repeat([''], v:count1))<CR>
-    nnoremap <silent> <C-k> :<C-u>call append(line(".") - 1, repeat([''], v:count1))<CR>
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
