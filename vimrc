@@ -347,6 +347,9 @@
     vnoremap <silent> gbdh c<C-r>=printf('%x', <C-r>")<CR><Esc>
     vnoremap <silent> gbhd c<C-r>=0x<C-r>"<CR><Esc>
 
+" Netrw mappings
+    nnoremap <expr> <Leader>l ":" . (winwidth(0) / 12) . "Vex<CR>"
+
 " fzf mappings (<Leader>f)
     " Use GFiles if in git repo, or Files otherwise
     nnoremap <expr> <Leader><Leader> ':' . (utils#in_git_repo() ? 'G' : '') . 'Files<CR>'
