@@ -107,7 +107,7 @@ let mapleader=" "
 
 nnoremap <Leader><Tab> :%s/\s\+$//e \| call histdel("/", -1) \| nohlsearch \| retab<CR>
 vnoremap <silent> <Leader>vs :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
-nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
+nnoremap <expr> <Leader>t ":" . (winheight(0) / 5) . "new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>"
 vnoremap <Leader>e <Esc>:execute 'normal gv' . (abs(getpos("'>")[2] + getpos("'>")[3] - getpos("'<")[2] - getpos("'<")[3]) + 1) . 'I '<CR>
 
 " Temporary file navigation setup

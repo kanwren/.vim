@@ -281,7 +281,7 @@
     " Add easy shortcut for git ls-files
     cnoremap ``g `git ls-files `<Left>
     " Make temporary unlisted scratch buffer
-    nnoremap <Leader>t :new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>
+    nnoremap <expr> <Leader>t ":" . (winheight(0) / 5) . "new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>"
 
 " Editing
     " Split current line by provided regex (\zs or \ze to preserve separators)
