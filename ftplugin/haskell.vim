@@ -32,10 +32,16 @@ endfunction
 
 function! InsertExt(ext) abort
     if !empty(trim(a:ext))
-        call append(0, '{-# language ' . a:ext . ' #-}')
+        let ln = 1
+        let lastline = line('$')
+        " Skip shebangs
+        while ln <= lastline && getline(ln) =~# '#!'
+            let ln += 1
+        endwhile
+        call append(ln - 1, '{-# language ' . a:ext . ' #-}')
         " Append blank line if module comes right after language extension
-        if getline(2) =~# 'module'
-            call append(1, '')
+        if getline(ln + 1) =~# 'module'
+            call append(ln, '')
         endif
     endif
 endfunction
