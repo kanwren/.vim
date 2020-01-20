@@ -151,21 +151,24 @@
         augroup highlight_group
             autocmd!
             " Highlight trailing whitespace
-            autocmd ColorScheme * highlight ExtraWhitespace ctermbg=4
+            autocmd ColorScheme * highlight ExtraWhitespace ctermbg=DarkBlue
             " Left column
             autocmd ColorScheme *
                         \   highlight FoldColumn ctermbg=NONE
                         \ | highlight Folded ctermbg=NONE
-                        \ | highlight LineNr ctermbg=NONE ctermfg=6
-                        \ | highlight CursorLineNr ctermbg=0 ctermfg=7
+                        \ | highlight LineNr ctermbg=NONE ctermfg=DarkCyan
+                        \ | highlight CursorLineNr ctermbg=NONE ctermfg=LightGray
             " Highlight text width boundary boundary
-            autocmd ColorScheme * highlight ColorColumn ctermbg=8
+            autocmd ColorScheme * highlight ColorColumn ctermbg=DarkGray
             " Highlight TODO and spelling mistakes in intentionally red
-            autocmd ColorScheme * highlight Todo ctermbg=1 ctermfg=7
+            autocmd ColorScheme * highlight Todo ctermbg=DarkRed ctermfg=LightGray
             autocmd ColorScheme * highlight SpellBad cterm=underline ctermfg=red
             " Highlight listchars and non-printable characters
-            autocmd ColorScheme * highlight SpecialKey ctermfg=4
-            autocmd ColorScheme * highlight NonText ctermfg=4
+            autocmd ColorScheme * highlight SpecialKey ctermfg=DarkBlue
+            autocmd ColorScheme * highlight NonText ctermfg=DarkBlue
+            " Highlight completion menu
+            autocmd ColorScheme * highlight Pmenu ctermbg=Black ctermfg=DarkGray
+            autocmd ColorScheme * highlight PmenuSel ctermfg=White
         augroup END
     endif
 " }}}

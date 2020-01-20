@@ -78,9 +78,9 @@ if has('autocmd')
     augroup highlight_group
         autocmd!
         autocmd ColorScheme *
-                    \   highlight ExtraWhitespace ctermbg=4
-                    \ | highlight LineNr ctermbg=NONE ctermfg=6
-                    \ | highlight CursorLineNr ctermbg=0 ctermfg=7
+                    \   highlight ExtraWhitespace ctermbg=DarkBlue
+                    \ | highlight LineNr ctermbg=NONE ctermfg=DarkCyan
+                    \ | highlight CursorLineNr ctermbg=NONE ctermfg=LightGray
     augroup END
 end
 
