@@ -5,6 +5,7 @@ autoload/plug.vim*
 tmp/
 backup/
 undo/
+view/
 
 # Plugins managed by vim-plug
 plugged/
