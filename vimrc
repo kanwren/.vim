@@ -57,6 +57,7 @@
 " Display
     set lazyredraw                       " don't redraw until after command/macro
     set shortmess+=I                     " disable Vim intro screen
+    set shortmess+=c                     " don't give ins-completion-menu messages
     set splitbelow splitright            " sensible split defaults
     set number relativenumber            " use Vim properly
     set list listchars=tab:>-,eol:¬,extends:>,precedes:<
@@ -71,6 +72,8 @@
     " completion menu
     set wildmenu
     set wildmode=longest:list,full
+    " sign column
+    set signcolumn=yes
 
 " Editing
     set noinsertmode                     " just in case
@@ -128,6 +131,8 @@
     set timeout timeoutlen=3000
     " Time out immediately on key codes
     set ttimeout ttimeoutlen=0
+    " Diagnostic messages
+    set updatetime=300
 " }}}
 
 " Autocommands/highlighting {{{
@@ -451,6 +456,9 @@
         " Interface/colorschemes
         Plug 'rakr/vim-one'
 
+        " LSP
+        Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': 'haskell' }
+
         " Language-specific plugins
         Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
         Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -504,6 +512,23 @@
     let g:vimwiki_listsym_rejected = '✗'
     let g:vimwiki_dir_link = 'index'
     "let g:vimwiki_table_auto_fmt = 0
+
+" coc
+    inoremap <silent> <expr> <C-space> coc#refresh()
+    " nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    " nmap <silent> ]g <Plug>(coc-diagnostic-next)
+    " nmap <silent> gd <Plug>(coc-definition)
+    " nmap <silent> gy <Plug>(coc-type-definition)
+    " nmap <silent> gi <Plug>(coc-implementation)
+    " nmap <silent> gr <Plug>(coc-references)
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        else
+            call CocAction('doHover')
+        endif
+    endfunction
 
 " haskell-vim
     let g:haskell_enable_quantification = 1   " `forall`
