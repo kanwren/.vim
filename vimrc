@@ -39,7 +39,6 @@
     set autoread
     set noconfirm                        " fail, don't ask to save
     set modeline modelines=1             " use one line to tell vim how to read the buffer
-    set nofixendofline                   " don't automatically insert newlines
 
 " History
     set history=1000
@@ -142,8 +141,8 @@
             " Open help window on right by default
             autocmd FileType help wincmd L
             " Return to last edit position when opening files
-            autocmd BufLeave,BufWinLeave * silent! mkview
-            autocmd BufReadPost * silent! loadview
+            "autocmd BufLeave,BufWinLeave * silent! mkview
+            "autocmd BufReadPost * silent! loadview
             " Highlight trailing whitespace (except when typing at end of line)
             autocmd BufRead     * match ExtraWhitespace /\s\+$/
             autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
