@@ -453,6 +453,11 @@
         Plug 'rakr/vim-one'
 
         " LSP
+        Plug 'prabirshrestha/async.vim'
+        Plug 'prabirshrestha/vim-lsp'
+        Plug 'mattn/vim-lsp-settings'
+        Plug 'prabirshrestha/asyncomplete.vim'
+        Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
         " Language-specific plugins
         Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
