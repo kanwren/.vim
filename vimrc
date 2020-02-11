@@ -513,6 +513,21 @@
     let g:vimwiki_dir_link = 'index'
     "let g:vimwiki_table_auto_fmt = 0
 
+" vim-lsp
+    nnoremap <Leader>lh  :LspHover<CR>
+    nnoremap <Leader>lgd :LspDefinition<CR>
+    nnoremap <Leader>lpd :LspPeekDefinition<CR>
+    nnoremap <Leader>lgt :LspTypeDefinition<CR>
+    nnoremap <Leader>lpt :LspPeekTypeDefinition<CR>
+    nnoremap <Leader>lr  :LspReferences<CR>
+
+    let g:lsp_diagnostics_enabled = 1
+    let g:lsp_signs_enabled = 1
+    let g:lsp_diagnostics_echo_cursor = 1
+    let g:lsp_signs_error = { 'text': '✗' }
+    let g:lsp_signs_warning = { 'text': '!' }
+    let g:lsp_signs_hint = { 'test': '?' }
+
 " haskell-vim
     let g:haskell_enable_quantification = 1   " `forall`
     let g:haskell_enable_recursivedo = 1      " `mdo` and `rec`
