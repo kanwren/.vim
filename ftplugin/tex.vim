@@ -1,5 +1,6 @@
 setlocal makeprg=pdflatex\ -quiet\ -aux-directory=%:h\ -output-directory\ %:h\ %
 
+set expandtab
 set textwidth=80
 " Automatically wrap at textwidth
 setlocal formatoptions+=t
