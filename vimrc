@@ -96,7 +96,7 @@
     set shiftwidth=4                     " use 4 spaces when using > or <
     set smarttab
     set noshiftround
-    set cinoptions+=:0L0g0j1J1           " indent distance for case, jumps, scope declarations
+    set cinoptions+=:0L0g0j1J1#0         " indent distance for case, jumps, scope declarations, and pragmas
 
 " Formatting
     set nowrap
@@ -351,9 +351,6 @@
     nnoremap <silent> gbhd ciw<C-r>=0x<C-r>"<CR><Esc>
     vnoremap <silent> gbdh c<C-r>=printf('%x', <C-r>")<CR><Esc>
     vnoremap <silent> gbhd c<C-r>=0x<C-r>"<CR><Esc>
-
-" Netrw mappings
-    nnoremap <expr> <Leader>l ":" . (winwidth(0) / 12) . "Vex<CR>"
 
 " fzf mappings (<Leader>f)
     " Use GFiles if in git repo, or Files otherwise
