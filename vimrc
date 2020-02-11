@@ -453,7 +453,6 @@
         Plug 'rakr/vim-one'
 
         " LSP
-        Plug 'neoclide/coc.nvim', { 'branch': 'release', 'for': 'haskell' }
 
         " Language-specific plugins
         Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
@@ -508,23 +507,6 @@
     let g:vimwiki_listsym_rejected = '✗'
     let g:vimwiki_dir_link = 'index'
     "let g:vimwiki_table_auto_fmt = 0
-
-" coc
-    inoremap <silent> <expr> <C-space> coc#refresh()
-    " nmap <silent> [g <Plug>(coc-diagnostic-prev)
-    " nmap <silent> ]g <Plug>(coc-diagnostic-next)
-    " nmap <silent> gd <Plug>(coc-definition)
-    " nmap <silent> gy <Plug>(coc-type-definition)
-    " nmap <silent> gi <Plug>(coc-implementation)
-    " nmap <silent> gr <Plug>(coc-references)
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
-    function! s:show_documentation()
-        if (index(['vim','help'], &filetype) >= 0)
-            execute 'h '.expand('<cword>')
-        else
-            call CocAction('doHover')
-        endif
-    endfunction
 
 " haskell-vim
     let g:haskell_enable_quantification = 1   " `forall`
