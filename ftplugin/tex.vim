@@ -6,7 +6,7 @@ set textwidth=80
 setlocal formatoptions+=t
 
 " View PDF
-nnoremap <buffer> <F3> :! mupdf %<.pdf &<CR><CR>
+nnoremap <buffer> <C-p> :! zathura %<.pdf &<CR><CR>
 
 " Use "m" to surround with \[\]
 let b:surround_109 = "\\[ \r \\]"
