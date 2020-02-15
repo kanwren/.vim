@@ -366,7 +366,6 @@
 
 " Fugitive mappings (<Leader>g)
     nnoremap <Leader>gs :Gstatus<CR>
-    nnoremap <Leader>gd :Gvdiffsplit!<CR>
     nnoremap <Leader>gl :Glog!<CR>
 "}}}
 
