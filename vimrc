@@ -141,8 +141,10 @@
             " Open help window on right by default
             autocmd FileType help wincmd L
             " Return to last edit position when opening files
-            "autocmd BufLeave,BufWinLeave * silent! mkview
-            "autocmd BufReadPost * silent! loadview
+            autocmd BufReadPost *
+                        \   if line("'\"") > 1 && line("'\"") <= line("$")
+                        \ |     execute "normal! g`\""
+                        \ | endif
             " Highlight trailing whitespace (except when typing at end of line)
             autocmd BufRead     * match ExtraWhitespace /\s\+$/
             autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -157,7 +159,7 @@
             " Left column
             autocmd ColorScheme *
                         \   highlight FoldColumn ctermbg=NONE
-                        \ | highlight Folded ctermbg=NONE ctermfg=DarkCyan
+                        \ | highlight Folded ctermbg=NONE
                         \ | highlight LineNr ctermbg=NONE ctermfg=DarkCyan
                         \ | highlight CursorLineNr ctermbg=NONE ctermfg=LightGray
             " Highlight text width boundary boundary
@@ -549,8 +551,6 @@
 " markdown-preview
     let vim_markdown_preview_pandoc = 1
     let vim_markdown_preview_use_xdg_open = 1
-    let vim_markdown_preview_toggle = 1
-    let vim_markdown_preview_temp_file = 1
 
 " personal plugin settings
     let g:indent_guide_enabled = 0
