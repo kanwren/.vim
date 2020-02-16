@@ -159,7 +159,7 @@
             " Left column
             autocmd ColorScheme *
                         \   highlight FoldColumn ctermbg=NONE
-                        \ | highlight Folded ctermbg=NONE
+                        \ | highlight Folded ctermbg=NONE ctermfg=DarkCyan
                         \ | highlight LineNr ctermbg=NONE ctermfg=DarkCyan
                         \ | highlight CursorLineNr ctermbg=NONE ctermfg=LightGray
             " Highlight text width boundary boundary
