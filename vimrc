@@ -75,7 +75,6 @@
     set signcolumn=yes
 
 " Editing
-    set noinsertmode                     " just in case
     if has('clipboard')
         set clipboard=unnamed
         if has('unnamedplus')
@@ -181,71 +180,12 @@
 " Basic commands
     " Force sudo write trick
     command! WS :execute ':silent w !sudo tee % > /dev/null' | :edit!
-    " cd to directory of current file
-    command! CD :cd %:h
-    " Reverse lines
-    command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1 | nohlsearch
     " Show calendar and date/time
     command! Cal :!clear && cal -y; date -R
     " Fetch mthesaurus.txt from gutenberg with curl
     command! GetThesaurus :!curl --create-dirs http://www.gutenberg.org/files/3202/files/mthesaur.txt -o ~/.vim/thesaurus/mthesaur.txt
 
-" JSON utilities (format, convert to and from YAML)
-    if executable('python3')
-        command! -range JT <line1>,<line2>!python3 -m json.tool
-        command! -range J2Y <line1>,<line2>!python3 -c 'import sys, yaml, json; yaml.safe_dump(json.load(sys.stdin), sys.stdout, default_flow_style=False)'
-        command! -range Y2J <line1>,<line2>!python3 -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin), sys.stdout)'
-    elseif executable('python')
-        command! -range JT <line1>,<line2>!python -m json.tool
-        command! -range J2Y <line1>,<line2>!python -c 'import sys, yaml, json; yaml.safe_dump(json.load(sys.stdin), sys.stdout, default_flow_style=False)'
-        command! -range Y2J <line1>,<line2>!python -c 'import sys, yaml, json; json.dump(yaml.safe_load(sys.stdin), sys.stdout)'
-    endif
-
 " Utility
-    function! ClearRegisters() abort
-        let regs = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-*+"'
-        let i = 0
-        while i < strlen(regs)
-            execute 'let @' . regs[i] . '=""'
-            let i += 1
-        endwhile
-    endfunction
-
-    command! -range Rule call MakeRules(<line1>, <line2>)
-    function! MakeRules(start, end) abort
-        let n = a:start
-        while n <= a:end
-            let l = getline(n)
-            let pad = (&tw - strlen(l)) / 2.0
-            call setline(n, repeat('-', float2nr(floor(pad))) . l . repeat('-', float2nr(ceil(pad))))
-            let n += 1
-        endwhile
-    endfunction
-
-    function! StrToHexCodes() abort
-        normal gvy
-        let str = @"
-        let i = 0
-        let codes = []
-        while i < strchars(str)
-            call add(codes, printf("%02x", strgetchar(str, i)))
-            let i += 1
-        endwhile
-        let @" = join(codes, ' ')
-        normal gv"0P
-    endfunction
-
-    function! HexCodesToStr() abort
-        normal gvy
-        let codes = split(@", '\x\{2}\zs *')
-        let str = ''
-        for code in codes
-            let str .= nr2char('0x' . code)
-        endfor
-        let @" = str
-        normal gv"0P
-    endfunction
-
     function! s:GetSnippets(arglead, cmdline, cursorpos) abort
         let paths = split(glob('~/.vim/snippets/*.txt'), "\n")
         let names = map(paths, 'fnamemodify(v:val, ":t:r")')
@@ -388,11 +328,6 @@
         " 2018-09-15T23:31:54
         iabbrev <expr> xiso strftime("%Y-%m-%dT%H:%M:%S")
     endif
-
-" This is so sad, Vim play Despacito
-    if executable('xdg-open')
-        iabbrev Despacito <Esc>:!xdg-open https://youtu.be/kJQP7kiw5Fk?t=83<CR>
-    endif
 " }}}
 
 " Plugins {{{
@@ -420,10 +355,6 @@
             endif
         endif
     endfunction
-
-    " Plugin settings that need to be set before their plugins are loaded
-    " lc3.vim
-    let g:lc3_detect_asm = 1
 
     silent! if !empty(glob('~/.vim/autoload/plug.vim'))
                 \ && !empty(glob('~/.vim/plugged'))
@@ -471,7 +402,6 @@
         " Plug 'lervag/vimtex', { 'for': 'tex' }
         Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
         " Misc
-        Plug 'nprindle/lc3.vim', { 'for': ['asm', 'lc3'] }
         Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 
         call plug#end()
@@ -538,8 +468,7 @@
     let g:haskell_enable_static_pointers = 1  " `static`
     let g:haskell_backpack = 1                " backpack keywords
 
-    let g:haskell_indent_if = 2
-    let g:haskell_indent_in = 0
+    let g:haskell_indent_disable = 1
 
     " Highlighting options not specific to haskell-vim
     let g:hs_allow_hash_operator = 1
@@ -551,9 +480,6 @@
 " markdown-preview
     let vim_markdown_preview_pandoc = 1
     let vim_markdown_preview_use_xdg_open = 1
-
-" personal plugin settings
-    let g:indent_guide_enabled = 0
 " }}}
 
 " Colors {{{
@@ -564,11 +490,7 @@
         let &t_te.="\e[0 q"
     endif
 
-    if colors#has256() && colors#exists('one')
-        silent! colorscheme one
-    else
-        silent! colorscheme elflord
-    endif
+    colorscheme one
     set background=dark
 " }}}
 
