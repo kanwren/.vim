@@ -182,8 +182,6 @@
     command! WS :execute ':silent w !sudo tee % > /dev/null' | :edit!
     " Show calendar and date/time
     command! Cal :!clear && cal -y; date -R
-    " Fetch mthesaurus.txt from gutenberg with curl
-    command! GetThesaurus :!curl --create-dirs http://www.gutenberg.org/files/3202/files/mthesaur.txt -o ~/.vim/thesaurus/mthesaur.txt
 
 " Utility
     function! s:GetSnippets(arglead, cmdline, cursorpos) abort
@@ -196,6 +194,13 @@
         endif
     endfunction
     command! -bang -nargs=1 -complete=customlist,<SID>GetSnippets ReadSnippet execute 'read ~/.vim/snippets/' . <q-args> . '.txt'
+
+    " Fetch mthesaurus.txt from gutenberg with curl
+    function! GetThesaurus() abort
+        let url = 'http://www.gutenberg.org/files/3202/files/mthesaur.txt'
+        let path = '~/.vim/thesaurus/mthesaur.txt'
+        call system('curl --create-dirs ' . url . ' -o ' . path)
+    endfunction
 " }}}
 
 " Mappings {{{
@@ -358,7 +363,7 @@
 
     silent! if !empty(glob('~/.vim/autoload/plug.vim'))
                 \ && !empty(glob('~/.vim/plugged'))
-                \ && plug#begin(glob('~/.vim/plugged'))
+                \ && plug#begin('~/.vim/plugged')
         " Functionality
         Plug 'tpope/vim-dispatch'                " Async dispatching
         Plug 'tpope/vim-fugitive'                " Git integration
@@ -399,7 +404,6 @@
         Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
         Plug 'jason0x43/vim-js-indent', { 'for': [ 'javascript', 'typescript' ] }
         " Markdowns, etc.
-        " Plug 'lervag/vimtex', { 'for': 'tex' }
         Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
         " Misc
         Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
@@ -496,7 +500,7 @@
 " }}}
 
 " Local vimrc
-    if !empty(glob('~/local.vimrc')) && filereadable(glob('~/local.vimrc'))
+    if !empty(glob('~/local.vimrc'))
         execute 'source ' . glob('~/local.vimrc')
     end
 
