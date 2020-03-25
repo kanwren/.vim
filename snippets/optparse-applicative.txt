@@ -1,0 +1,18 @@
+import Options.Applicative
+
+data Args = Args
+  { _argsFoo :: String
+  , _argsBar :: Maybe Int
+  }
+
+args :: Parser Args
+args = Args
+  <$> do strOption     $ short 'f' <> long "foo" <> metavar "FOO" <> help "Foo"
+  <*> do maybeOpt auto $ short 'b' <> long "bar" <> metavar "BAR" <> help "Bar"
+
+parseArgs :: IO Args
+parseArgs = customExecParser parserPrefs $ info (args <**> helper) infoMod
+  where
+    parserPrefs = prefs showHelpOnEmpty
+    infoMod = progDesc "TODO"
+    maybeOpt readm mods = option (fmap Just readm) (mods <> value Nothing)
