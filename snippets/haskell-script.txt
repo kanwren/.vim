@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i runhaskell -p "haskell.packages.ghc865.ghcWithPackages (p: with p; [])"
+#! nix-shell -i runhaskell -p "haskell.packages.ghc881.ghcWithPackages (p: with p; [])"
 
 main :: IO ()
 main = do
