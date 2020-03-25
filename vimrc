@@ -247,14 +247,17 @@
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
-    nnoremap <silent> <Leader><Tab> :let wv=winsaveview()<CR>:keeppatterns %s/\s\+$//e \| nohlsearch \| retab<CR>:call winrestview(wv)<CR>
-    " Remove CR line endings
-    nnoremap <silent> <Leader><CR> :%s/\r//g
+    nnoremap <silent> <Leader><Tab> :let wv=winsaveview()<CR>:keeppatterns %s/\s\+\ze\r\=$//e \| nohlsearch \| retab<CR>:call winrestview(wv) \| unlet wv<CR>
     " Add blank line below/above line/selection, keep cursor in same position (can take count)
     nnoremap <silent> <Leader>n :<C-u>call append(line("."), repeat([''], v:count1)) \| call append(line(".") - 1, repeat([''], v:count1))<CR>
     vnoremap <silent> <Leader>n :<C-u>call append(line("'<") - 1, repeat([''], v:count1)) \| call append(line("'>"), repeat([''], v:count1))<CR>
     " Expand line by padding visual block selection with spaces
-    vnoremap <Leader>e <Esc>:execute 'normal gv' . (abs(getpos("'>")[2] + getpos("'>")[3] - getpos("'<")[2] - getpos("'<")[3]) + 1) . 'I '<CR>
+    function! s:Expand() abort
+        let l = getpos("'<")
+        let r = getpos("'>")
+        execute 'normal gv' . (abs(r[2] + r[3] - l[2] - l[3]) + 1) . 'I '
+    endfunction
+    vnoremap <Leader>e <Esc>:call <SID>Expand()<CR>
 
 " Registers
     " Display registers
