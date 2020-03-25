@@ -362,7 +362,7 @@
         " Functionality
         Plug 'tpope/vim-dispatch'                " Async dispatching
         Plug 'tpope/vim-fugitive'                " Git integration
-        Plug 'airblade/vim-rooter'               " Automatically cd to project root
+        Plug 'airblade/vim-rooter'               " cd to project root
         Plug 'sheerun/vim-polyglot'              " Collection of language packs to rule them all
         Plug 'vimwiki/vimwiki'                   " Personal wiki for Vim
 
@@ -414,7 +414,8 @@
     let g:netrw_liststyle=3
 
 " Rooter
-    let g:rooter_silent_chdir = 1
+    " Don't trigger automatically
+    let g:rooter_manual_only = 1
 
 " Vimwiki
     highlight VimwikiLink ctermbg=black ctermfg=2
