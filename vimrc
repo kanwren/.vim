@@ -459,6 +459,7 @@
     nnoremap <Leader>lgt :LspTypeDefinition<CR>
     nnoremap <Leader>lpt :LspPeekTypeDefinition<CR>
     nnoremap <Leader>lr  :LspReferences<CR>
+    noremap  <Leader>la  :LspCodeAction<CR>
 
     let g:lsp_diagnostics_enabled = 1
     let g:lsp_signs_enabled = 1
