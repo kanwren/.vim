@@ -35,7 +35,7 @@ set noerrorbells
 set visualbell t_vb=
 
 " Navigation
-set mouse=a
+set mouse-=a
 set scrolloff=0
 
 " Display
