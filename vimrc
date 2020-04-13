@@ -240,8 +240,6 @@
     xnoremap gs :s/\%V
     " Sort visual selection
     vnoremap <silent> <Leader>s :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
-    " Interactive alignment
-    vnoremap gz :LiveEasyAlign<CR>
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
@@ -375,17 +373,14 @@
         " Functionality
         Plug 'tpope/vim-dispatch'                " Async dispatching
         Plug 'tpope/vim-fugitive'                " Git integration
-        Plug 'airblade/vim-rooter'               " cd to project root
-        Plug 'sheerun/vim-polyglot'              " Collection of language packs to rule them all
         Plug 'vimwiki/vimwiki'                   " Personal wiki for Vim
 
         " Utility
-        Plug 'tpope/vim-surround'                " Mappings for inserting/changing/deleting surrounding characters/elements
+        Plug 'machakann/vim-sandwich'            " Mappings for inserting/changing/deleting surrounding characters/elements
+        Plug 'airblade/vim-rooter'               " cd to project root
         Plug 'tpope/vim-eunuch'                  " File operations
-        Plug 'tpope/vim-abolish'                 " Smart substitution, spelling correction, etc.
-        Plug 'tpope/vim-repeat'                  " Repeating more actions with .
         Plug 'tpope/vim-commentary'              " Easy commenting
-        Plug 'tpope/vim-speeddating'             " Fix negative problem when incrementing dates
+        Plug 'tpope/vim-abolish'                 " Smart substitution, spelling correction, etc.
         Plug 'junegunn/vim-easy-align'           " Interactive alignment rules
         Plug 'tommcdo/vim-exchange'              " Operators for exchanging text
         Plug 'jiangmiao/auto-pairs', { 'for': [ 'rust', 'java', 'c', 'cpp', 'javascript', 'typescript' ] }
@@ -416,7 +411,13 @@
         " Misc
         Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 
+        " Collection of language packs
+        " This should be loaded after language-specific plugins
+        Plug 'sheerun/vim-polyglot'
         call plug#end()
+
+        " Use vim-surround mappings for vim-sandwich
+        runtime macros/sandwich/keymap/surround.vim
     endif
 " }}}
 
