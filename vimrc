@@ -426,6 +426,33 @@
     let g:netrw_banner=0
     let g:netrw_liststyle=3
 
+" vim-sandwich
+    " Recipes that automatically adjust indentation
+    let g:sandwich#recipes += [
+                \   {
+                \     'buns':       ['{', '}'],
+                \     'motionwise': ['line'],
+                \     'kind':       ['add'],
+                \     'linewise':   1,
+                \     'command':    ["'[+1,']-1normal! =="],
+                \     'input':      ['B', '{'],
+                \   },
+                \   {
+                \     'buns':       ['{', '}'],
+                \     'motionwise': ['line'],
+                \     'kind':       ['delete'],
+                \     'linewise':   1,
+                \     'command':    ["'[,']normal! =="],
+                \     'input':      ['B', '{'],
+                \   },
+                \ ]
+    " Recipes for brackets with spaces
+    let g:sandwich#recipes += [
+                \   { 'buns': ['( ', ' )'], 'input': ['('] },
+                \   { 'buns': ['{ ', ' }'], 'input': ['{'] },
+                \   { 'buns': ['[ ', ' ]'], 'input': ['['] },
+                \ ]
+
 " Rooter
     " Don't trigger automatically
     let g:rooter_manual_only = 1
