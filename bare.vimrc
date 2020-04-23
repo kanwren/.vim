@@ -21,7 +21,7 @@ endif
 "     set undofile undodir=~/.vim/undo//
 "     if !isdirectory(&undodir) | call mkdir(&undodir, 'p') | endif
 " endif
-" for d in [&directory, &backupdir, &undodir]
+" for d in [&directory, &backupdir]
 "     if !isdirectory(d) | call mkdir(d, 'p') | endif
 " endfor
 
