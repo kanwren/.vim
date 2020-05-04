@@ -1,0 +1,35 @@
+{ nixpkgs
+, enableHoogle ? false
+}:
+
+let
+  overlay = self: super:
+    let
+      inherit (super) lib;
+      ghcOverride = input: ovl:
+        input.override (old: {
+          overrides = lib.composeExtensions (old.overrides or (_: _: {})) ovl;
+        });
+      withHoogle = input:
+        if !enableHoogle then input
+        else ghcOverride input (hself: hsuper: {
+          ghc = hsuper.ghc // { withPackages = hsuper.ghc.withHoogle; };
+          ghcWithPackages = hself.ghc.withPackages;
+        });
+      haskellOverlay = hself: hsuper:
+        let hlib = super.haskell.lib; in {
+          # Overrides go here
+        };
+    in {
+      haskell = super.haskell // {
+        packages = super.haskell.packages // {
+          ghc865 = withHoogle (ghcOverride super.haskell.packages.ghc865 haskellOverlay);
+          ghc881 = withHoogle (ghcOverride super.haskell.packages.ghc881 haskellOverlay);
+        };
+      };
+    };
+  pkgs = import nixpkgs { overlays = [ overlay ]; };
+in {
+  # Results go here
+}
+

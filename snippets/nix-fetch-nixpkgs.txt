@@ -2,7 +2,3 @@ fetchNixpkgs = { rev, sha256 }: builtins.fetchTarball {
   url = "https://github.com/nixos/nixpkgs/archive/${rev}.tar.gz";
   inherit sha256;
 };
-pkgs = import (fetchNixpkgs {
-  rev = "";
-  sha256 = "";
-}) {};
