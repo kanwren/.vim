@@ -363,7 +363,6 @@
         " Functionality
         Plug 'tpope/vim-dispatch'                " Async dispatching
         Plug 'tpope/vim-fugitive'                " Git integration
-        Plug 'vimwiki/vimwiki'                   " Personal wiki for Vim
 
         " Utility
         Plug 'machakann/vim-sandwich'            " Mappings for inserting/changing/deleting surrounding characters/elements
@@ -446,34 +445,6 @@
 " Rooter
     " Don't trigger automatically
     let g:rooter_manual_only = 1
-
-" Vimwiki
-    highlight VimwikiLink ctermbg=black ctermfg=2
-    highlight VimwikiHeader1 ctermfg=magenta
-    highlight VimwikiHeader2 ctermfg=blue
-    highlight VimwikiHeader3 ctermfg=green
-    let wiki = {}
-    let wiki.path = '~/wiki/'
-    let wiki.path_html = '~/wiki/html/'
-    let wiki.template_path = wiki.path . 'templates/'
-    let wiki.css_name = '../style.css'
-    let wiki.template_ext = '.tpl'
-    let wiki.nested_syntaxes = {
-                \ 'haskell':     'haskell',
-                \ 'c':           'c',
-                \ 'c++':         'cpp',
-                \ 'cpp':         'cpp',
-                \ 'java':        'java',
-                \ 'javascript':  'javascript',
-                \ 'python':      'python',
-                \ 'scala':       'scala',
-                \ 'lc3':         'lc3',
-                \ }
-    let g:vimwiki_list = [wiki]
-    let g:vimwiki_listsyms = ' .○●✓'
-    let g:vimwiki_listsym_rejected = '✗'
-    let g:vimwiki_dir_link = 'index'
-    "let g:vimwiki_table_auto_fmt = 0
 
 " vim-lsp
     nnoremap <Leader>lh  :LspHover<CR>
