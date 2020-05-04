@@ -105,8 +105,6 @@ set ttimeout ttimeoutlen=0
 " nnoremap Q @q
 " xnoremap <silent> Q :normal @q<CR>
 " xnoremap <silent> . :normal .<CR>
-" noremap Y y$
-" nnoremap & :&&<CR>
 " xnoremap gx <Esc>`.``gvP``P
 " nnoremap gs :s//\r/g<Left><Left><Left><Left><Left>
 " xnoremap gs :s/\%V

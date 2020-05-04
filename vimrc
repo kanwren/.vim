@@ -217,21 +217,10 @@
     " Repeat macros/commands across visual selections
     xnoremap <silent> Q :normal @q<CR>
     xnoremap <silent> . :normal .<CR>
-    " Make Y behave like C and D
-    noremap Y y$
-    " Make & keep the last flags used
-    nnoremap & :&&<CR>
-    " Search word underneath cursor/selection but don't jump
-    nnoremap <silent> * :let wv=winsaveview()<CR>*:call winrestview(wv)<CR>
-    nnoremap <silent> # :let wv=winsaveview()<CR>#:call winrestview(wv)<CR>
     " Redraw page and clear highlights
     noremap <silent> <C-l> :nohlsearch<CR><C-l>
-    " Strip whitespace when using <C-r><C-l>
-    cnoremap <C-r><C-l> <C-r>=substitute(getline('.'), '^\s*', '', '')<CR>
-    " Add easy shortcut for git ls-files
-    cnoremap ``g `git ls-files `<Left>
     " Make temporary unlisted scratch buffer
-    nnoremap <expr> <Leader>t ":" . (winheight(0) / 5) . "new<CR>:setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>"
+    nnoremap <expr> <Leader>t ":new\|setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>"
 
 " Editing
     " Split current line by provided regex (\zs or \ze to preserve separators)
@@ -246,7 +235,6 @@
     nnoremap <silent> <Leader><Tab> :let wv=winsaveview()<CR>:keeppatterns %s/\s\+\ze\r\=$//e \| nohlsearch \| retab<CR>:call winrestview(wv) \| unlet wv<CR>
     " Add blank line below/above line/selection, keep cursor in same position (can take count)
     nnoremap <silent> <Leader>n :<C-u>call append(line("."), repeat([''], v:count1)) \| call append(line(".") - 1, repeat([''], v:count1))<CR>
-    vnoremap <silent> <Leader>n :<C-u>call append(line("'<") - 1, repeat([''], v:count1)) \| call append(line("'>"), repeat([''], v:count1))<CR>
     " Expand line by padding visual block selection with spaces
     function! s:Expand() abort
         let l = getpos("'<")
@@ -256,11 +244,14 @@
     vnoremap <Leader>e <Esc>:call <SID>Expand()<CR>
 
 " Registers
-    " Display registers
-    nnoremap <silent> "" :registers<CR>
     " Copy contents of register to another (provides ' as an alias for ")
-    nnoremap <silent> <Leader>r :let r1 = substitute(nr2char(getchar()), "'", "\"", "") \| let r2 = substitute(nr2char(getchar()), "'", "\"", "")
-                \ \| execute 'let @' . r2 . '=@' . r1 \| echo "Copied @" . r1 . " to @" . r2<CR>
+    function! s:RegMove() abort
+        let r1 = substitute(nr2char(getchar()), "'", "\"", "")
+        let r2 = substitute(nr2char(getchar()), "'", "\"", "")
+        execute 'let @' . r2 . '=@' . r1
+        echo "Copied @" . r1 . " to @" . r2
+    endfunction
+    nnoremap <silent> <Leader>r :call <SID>RegMove()<CR>
 
 " Matching navigation commands, like in unimpaired
     for [l, c] in [["b", "b"], ["t", "t"], ["q", "c"], ["l", "l"]]
@@ -272,9 +263,6 @@
     endfor
 
 " Quick settings changes
-    " .vimrc editing/sourcing
-    nnoremap <Leader>ve :edit $MYVIMRC<CR>
-    nnoremap <Leader>vs :source $MYVIMRC<CR>
     " Filetype ftplugin editing
     nnoremap <Leader>vf :edit ~/.vim/ftplugin/<C-r>=&filetype<CR>.vim<CR>
     " Change indent level on the fly
@@ -289,20 +277,10 @@
     nnoremap <Leader>i :call <SID>ChangeIndent()<CR>
 
 " fzf mappings (<Leader>f)
-    " Use GFiles if in git repo, or Files otherwise
-    nnoremap <expr> <Leader><Leader> ':' . (utils#in_git_repo() ? 'G' : '') . 'Files<CR>'
     " Search all git ls-files files
     nnoremap <Leader>fg :GFiles<CR>
     " Search all files
     nnoremap <Leader>ff :Files<CR>
-    " Results of an ag search
-    nnoremap <Leader>fa :Ag<Space>
-    " Tags in project
-    nnoremap <Leader>ft :Tags<CR>
-
-" Fugitive mappings (<Leader>g)
-    nnoremap <Leader>gs :Gstatus<CR>
-    nnoremap <Leader>gl :Glog!<CR>
 "}}}
 
 " Abbreviations {{{
@@ -361,7 +339,6 @@
                 \ && !empty(glob('~/.vim/plugged'))
                 \ && plug#begin('~/.vim/plugged')
         " Functionality
-        Plug 'tpope/vim-dispatch'                " Async dispatching
         Plug 'tpope/vim-fugitive'                " Git integration
 
         " Utility
