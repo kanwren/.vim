@@ -175,13 +175,13 @@
 " }}}
 
 " Functions/commands {{{
-" Basic commands
+    " Make unlisted scratch buffer
+    command! Scratch new | setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
     " Force sudo write trick
     command! WS :execute ':silent w !sudo tee % > /dev/null' | :edit!
     " Show calendar and date/time
     command! Cal :!clear && cal -y; date -R
 
-" Utility
     function! s:GetSnippets(arglead, cmdline, cursorpos) abort
         let paths = split(glob('~/.vim/snippets/*.txt'), "\n")
         let names = map(paths, 'fnamemodify(v:val, ":t:r")')
@@ -219,8 +219,6 @@
     xnoremap <silent> . :normal .<CR>
     " Redraw page and clear highlights
     noremap <silent> <C-l> :nohlsearch<CR><C-l>
-    " Make temporary unlisted scratch buffer
-    nnoremap <expr> <Leader>t ":new\|setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile<CR>"
 
 " Editing
     " Split current line by provided regex (\zs or \ze to preserve separators)
