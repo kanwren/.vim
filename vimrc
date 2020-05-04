@@ -288,16 +288,6 @@
     endfunction
     nnoremap <Leader>i :call <SID>ChangeIndent()<CR>
 
-" Base conversion utilities (gb)
-    nnoremap <silent> gbdb ciw<C-r>=printf('%b', <C-r>")<CR><Esc>
-    nnoremap <silent> gbbd ciw<C-r>=0b<C-r>"<CR><Esc>
-    vnoremap <silent> gbdb c<C-r>=printf('%b', <C-r>")<CR><Esc>
-    vnoremap <silent> gbbd c<C-r>=0b<C-r>"<CR><Esc>
-    nnoremap <silent> gbdh ciw<C-r>=printf('%x', <C-r>")<CR><Esc>
-    nnoremap <silent> gbhd ciw<C-r>=0x<C-r>"<CR><Esc>
-    vnoremap <silent> gbdh c<C-r>=printf('%x', <C-r>")<CR><Esc>
-    vnoremap <silent> gbhd c<C-r>=0x<C-r>"<CR><Esc>
-
 " fzf mappings (<Leader>f)
     " Use GFiles if in git repo, or Files otherwise
     nnoremap <expr> <Leader><Leader> ':' . (utils#in_git_repo() ? 'G' : '') . 'Files<CR>'
