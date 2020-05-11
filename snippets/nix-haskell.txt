@@ -16,20 +16,25 @@ let
           ghc = hsuper.ghc // { withPackages = hsuper.ghc.withHoogle; };
           ghcWithPackages = hself.ghc.withPackages;
         });
-      haskellOverlay = hself: hsuper:
-        let hlib = super.haskell.lib; in {
-          # Overrides go here
-        };
+      mainOverlay = hself: hsuper: {
+        # Result packages go here
+        foobar = hsuper.callCabal2nix "foobar" (cleanHaskell ../.) {};
+      };
+      packageOverlay = hself: hsuper: {
+        # Package overrides go here
+      };
+      composeOverlays = lib.foldl' lib.composeExtensions (_: _: {});
     in {
       haskell = super.haskell // {
         packages = super.haskell.packages // {
-          ghc865 = withHoogle (ghcOverride super.haskell.packages.ghc865 haskellOverlay);
-          ghc881 = withHoogle (ghcOverride super.haskell.packages.ghc881 haskellOverlay);
+          ghc882 = withHoogle (ghcOverride super.haskell.packages.ghc882
+            (composeOverlays [ mainOverlay packageOverlay ]));
         };
       };
     };
   pkgs = import nixpkgs { overlays = [ overlay ]; };
 in {
   # Results go here
+  inherit (pkgs.haskell.packages.ghc882) foobar;
 }
 
