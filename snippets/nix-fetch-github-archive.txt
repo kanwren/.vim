@@ -1,0 +1,4 @@
+fetchGithubArchive = { owner, repo, rev, sha256 }: fetchTarball {
+  url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
+  inherit sha256;
+};

@@ -27,7 +27,7 @@ let
     in {
       haskell = super.haskell // {
         packages = super.haskell.packages // {
-          ghc882 = withHoogle (ghcOverride super.haskell.packages.ghc882
+          ghc883 = withHoogle (ghcOverride super.haskell.packages.ghc883
             (composeOverlays [ mainOverlay packageOverlay ]));
         };
       };
@@ -35,6 +35,6 @@ let
   pkgs = import nixpkgs { overlays = [ overlay ]; };
 in {
   # Results go here
-  inherit (pkgs.haskell.packages.ghc882) foobar;
+  inherit (pkgs.haskell.packages.ghc883) foobar;
 }
 
