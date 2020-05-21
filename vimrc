@@ -341,11 +341,11 @@
 
         " Utility
         Plug 'machakann/vim-sandwich'            " Mappings for inserting/changing/deleting surrounding characters/elements
+        Plug 'mg979/vim-visual-multi'            " Multiple cursors (I will happily defend this philosophy)
         Plug 'airblade/vim-rooter'               " cd to project root
         Plug 'tpope/vim-eunuch'                  " File operations
         Plug 'tpope/vim-commentary'              " Easy commenting
         Plug 'tpope/vim-abolish'                 " Smart substitution, spelling correction, etc.
-        Plug 'junegunn/vim-easy-align'           " Interactive alignment rules
         Plug 'tommcdo/vim-exchange'              " Operators for exchanging text
         Plug 'jiangmiao/auto-pairs', { 'for': [ 'rust', 'java', 'c', 'cpp', 'javascript', 'typescript' ] }
 
@@ -390,32 +390,9 @@
     let g:netrw_banner=0
     let g:netrw_liststyle=3
 
-" vim-sandwich
-    " Recipes that automatically adjust indentation
-    let g:sandwich#recipes += [
-                \   {
-                \     'buns':       ['{', '}'],
-                \     'motionwise': ['line'],
-                \     'kind':       ['add'],
-                \     'linewise':   1,
-                \     'command':    ["'[+1,']-1normal! =="],
-                \     'input':      ['B', '{'],
-                \   },
-                \   {
-                \     'buns':       ['{', '}'],
-                \     'motionwise': ['line'],
-                \     'kind':       ['delete'],
-                \     'linewise':   1,
-                \     'command':    ["'[,']normal! =="],
-                \     'input':      ['B', '{'],
-                \   },
-                \ ]
-    " Recipes for brackets with spaces
-    let g:sandwich#recipes += [
-                \   { 'buns': ['( ', ' )'], 'input': ['('] },
-                \   { 'buns': ['{ ', ' }'], 'input': ['{'] },
-                \   { 'buns': ['[ ', ' ]'], 'input': ['['] },
-                \ ]
+" vim-visual-multi
+    nmap <C-j> <Plug>(VM-Add-Cursor-Down)
+    nmap <C-k> <Plug>(VM-Add-Cursor-Up)
 
 " Rooter
     " Don't trigger automatically
