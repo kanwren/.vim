@@ -1,21 +1,22 @@
-{ nixpkgs
-, enableHoogle ? false
+{ enableHoogle ? false
 }:
 
 self: super:
 
 let
   inherit (super) lib;
-  ghcOverride = input: ovl:
-    input.override (old: {
-      overrides = lib.composeExtensions (old.overrides or (_: _: {})) ovl;
-    });
+  hlib = super.haskell.lib;
+
+  ghcOverride = input: ovl: input.override (old: {
+    overrides = lib.composeExtensions (old.overrides or (_: _: {})) ovl;
+  });
   withHoogle = input:
     if !enableHoogle then input
     else ghcOverride input (hself: hsuper: {
       ghc = hsuper.ghc // { withPackages = hsuper.ghc.withHoogle; };
       ghcWithPackages = hself.ghc.withPackages;
     });
+
   mainOverlay = hself: hsuper: {
     # Result packages go here
     foobar = hsuper.callCabal2nix "foobar" (cleanHaskell ../.) {};
@@ -23,11 +24,12 @@ let
   packageOverlay = hself: hsuper: {
     # Package overrides go here
   };
+
   composeOverlays = lib.foldl' lib.composeExtensions (_: _: {});
 in {
   haskell = super.haskell // {
     packages = super.haskell.packages // {
-      ghc883 = withHoogle (ghcOverride super.haskell.packages.ghc883
+      ghc8101 = withHoogle (ghcOverride super.haskell.packages.ghc8101
         (composeOverlays [ mainOverlay packageOverlay ]));
     };
   };
