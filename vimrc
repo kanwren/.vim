@@ -227,6 +227,8 @@
     xnoremap gs :s/\%V
     " Sort visual selection
     vnoremap <silent> <Leader>s :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
+    " Open an unlisted scratch buffer
+    nnoremap <Leader>s :Scratch<CR>
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
@@ -276,7 +278,7 @@
 
 " fzf mappings (<Leader>f)
     " Search all git ls-files files
-    nnoremap <Leader>fg :GFiles<CR>
+    nnoremap <Leader><Leader> :GFiles<CR>
     " Search all files
     nnoremap <Leader>ff :Files<CR>
 "}}}
@@ -333,6 +335,8 @@
     let g:lsp_signs_warning = { 'text': '!' }
     let g:lsp_signs_hint = { 'test': '?' }
 
+    let g:lc3_detect_asm = 1
+
     silent! if !empty(glob('~/.vim/autoload/plug.vim'))
                 \ && !empty(glob('~/.vim/plugged'))
                 \ && plug#begin('~/.vim/plugged')
@@ -374,6 +378,7 @@
         Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
         " Misc
         Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
+        Plug 'nprindle/lc3.vim'
 
         " Collection of language packs
         " This should be loaded after language-specific plugins
@@ -399,6 +404,26 @@
     let g:rooter_manual_only = 1
 
 " vim-lsp
+    " if executable('haskell-ide-engine-wrapper')
+    "     " pip install python-language-server
+    "     augroup hie_group
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "             \ 'name': 'haskell-ide-engine',
+    "             \ 'cmd': {server_info->['haskell-ide-engine-wrapper', '--lsp']},
+    "             \ 'whitelist': ['haskell', 'hs', 'lhs'],
+    "             \ })
+    "         augroup END
+    " endif
+
+    if executable('rnix-lsp')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'rnix-lsp',
+            \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
+            \ 'whitelist': ['nix'],
+            \ })
+    endif
+
     nnoremap <Leader>lh  :LspHover<CR>
     nnoremap <Leader>lgd :LspDefinition<CR>
     nnoremap <Leader>lpd :LspPeekDefinition<CR>
