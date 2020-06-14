@@ -1,36 +1,43 @@
-{ enableHoogle ? false
-}:
-
 self: super:
 
 let
+  # If using niv
+  sources = import ./sources.nix;
+
   inherit (super) lib;
   hlib = super.haskell.lib;
+  clean = import ./clean.nix { inherit (super) lib; };
 
   ghcOverride = input: ovl: input.override (old: {
-    overrides = lib.composeExtensions (old.overrides or (_: _: {})) ovl;
+    overrides = lib.composeExtensions (old.overrides or (_: _: { })) ovl;
   });
-  withHoogle = input:
-    if !enableHoogle then input
-    else ghcOverride input (hself: hsuper: {
-      ghc = hsuper.ghc // { withPackages = hsuper.ghc.withHoogle; };
-      ghcWithPackages = hself.ghc.withPackages;
-    });
 
+  fixGhcWithHoogle = input: ghcOverride input (hself: hsuper: {
+    # Compose the selector with a null filter to fix error on null packages
+    ghcWithHoogle = selector:
+      hsuper.ghcWithHoogle (ps: builtins.filter (x: x != null) (selector ps));
+    ghc = hsuper.ghc // { withHoogle = hself.ghcWithHoogle; };
+  });
+
+  # Package overrides
+  packageOverlay = hself: hsuper: { };
+
+  # Result packages
   mainOverlay = hself: hsuper: {
-    # Result packages go here
-    foobar = hsuper.callCabal2nix "foobar" (cleanHaskell ../.) {};
-  };
-  packageOverlay = hself: hsuper: {
-    # Package overrides go here
+    foobar = hsuper.callCabal2nix "foobar" (clean ../.) { };
   };
 
-  composeOverlays = lib.foldl' lib.composeExtensions (_: _: {});
+  composeOverlays = lib.foldl' lib.composeExtensions (_: _: { });
+  haskellOverlay = composeOverlays [ mainOverlay packageOverlay ];
+
 in {
+  niv = (import sources.niv {}).niv;
+
   haskell = super.haskell // {
     packages = super.haskell.packages // {
-      ghc8101 = withHoogle (ghcOverride super.haskell.packages.ghc8101
-        (composeOverlays [ mainOverlay packageOverlay ]));
+      ghc883 = fixGhcWithHoogle
+        (ghcOverride super.haskell.packages.ghc883 haskellOverlay);
     };
   };
 }
+

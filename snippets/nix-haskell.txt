@@ -1,43 +1,31 @@
-{ nixpkgs
-, enableHoogle ? false
-}:
-
 let
-  overlay = self: super:
-    let
-      inherit (super) lib;
-      hlib = super.haskell.lib;
+  # If using niv
+  sources = import ./sources.nix;
 
-      ghcOverride = input: ovl: input.override (old: {
-        overrides = lib.composeExtensions (old.overrides or (_: _: {})) ovl;
-      });
-      withHoogle = input:
-        if !enableHoogle then input
-        else ghcOverride input (hself: hsuper: {
-          ghc = hsuper.ghc // { withPackages = hsuper.ghc.withHoogle; };
-          ghcWithPackages = hself.ghc.withPackages;
-        });
+  pkgs = import sources.nixpkgs {
+    # Use nix-haskell-overlay to write the overlay
+    overlays = [ (import ./overlay.nix) ];
+  };
 
-      mainOverlay = hself: hsuper: {
-        # Result packages go here
-        foobar = hsuper.callCabal2nix "foobar" (cleanHaskell ../.) {};
-      };
-      packageOverlay = hself: hsuper: {
-        # Package overrides go here
-      };
+  hpkgs = pkgs.haskell.packages.ghc883;
+in
 
-      composeOverlays = lib.foldl' lib.composeExtensions (_: _: {});
-    in {
-      haskell = super.haskell // {
-        packages = super.haskell.packages // {
-          ghc8101 = withHoogle (ghcOverride super.haskell.packages.ghc8101
-            (composeOverlays [ mainOverlay packageOverlay ]));
-        };
-      };
-    };
-  pkgs = import nixpkgs { overlays = [ overlay ]; };
-in {
-  # Results go here
-  inherit (pkgs.haskell.packages.ghc8101) foobar;
+rec {
+  inherit (hpkgs) foobar;
+
+  shell = hpkgs.shellFor {
+    packages = ps: with ps; [ foobar ];
+
+    buildInputs = (with pkgs; [
+      # Needed for niv
+      niv nix cacert
+    ]) ++ (with hpkgs; [
+      ghcid
+      cabal-install
+    ]);
+
+    withHoogle = true;
+    exactDeps = true;
+  };
 }
 
