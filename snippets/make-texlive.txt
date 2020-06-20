@@ -1,0 +1,18 @@
+.PHONY: all
+all: $(DOCNAME).pdf
+
+$(DOCNAME).pdf: $(DOCNAME).tex
+	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(DOCNAME).tex
+
+.PHONY: watch
+watch: $(DOCNAME).tex
+	latexmk -pvc -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(DOCNAME).tex
+
+.PHONY: clean
+clean:
+	latexmk -CA
+
+.PHONY: install
+install:
+	mkdir -pv ${out}/nix-support/
+	cp $(DOCNAME).pdf ${out}/

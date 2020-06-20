@@ -1,0 +1,17 @@
+{ nixpkgs ? <nixpkgs>
+}:
+
+let
+  pkgs = import nixpkgs {};
+  myTex = with pkgs; texlive.combine {
+    inherit (texlive)
+      scheme-small
+
+      # Packages go here
+
+      latexmk;
+  };
+in pkgs.mkShell {
+  buildInputs = [ myTex ];
+}
+
