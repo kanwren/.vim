@@ -182,8 +182,8 @@
     " Show calendar and date/time
     command! Cal :!clear && cal -y; date -R
 
-    function! s:GetSnippets(arglead, cmdline, cursorpos) abort
-        let paths = split(glob('~/.vim/snippets/*.txt'), "\n")
+    function! s:GetTemplates(arglead, cmdline, cursorpos) abort
+        let paths = split(glob('~/.vim/templates/*.txt'), "\n")
         let names = map(paths, 'fnamemodify(v:val, ":t:r")')
         if empty(a:arglead)
             return names
@@ -191,7 +191,7 @@
             return filter(names, {idx, val -> len(val) >= len(a:arglead) && val[:len(a:arglead) - 1] ==# a:arglead})
         endif
     endfunction
-    command! -bang -nargs=1 -complete=customlist,<SID>GetSnippets ReadSnippet execute 'read ~/.vim/snippets/' . <q-args> . '.txt'
+    command! -bang -nargs=1 -complete=customlist,<SID>GetTemplates ReadTemplate execute 'read ~/.vim/templates/' . <q-args> . '.txt'
 
     " Fetch mthesaurus.txt from gutenberg with curl
     function! GetThesaurus() abort
