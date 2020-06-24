@@ -1,6 +1,7 @@
 setlocal tabstop=2 softtabstop=2 shiftwidth=2
 setlocal textwidth=80
 setlocal colorcolumn=81,121
+setlocal formatprg=stylish-haskell
 
 " Change "a (function application)" to "a $ function application"
 nnoremap <buffer> <Leader>$ :normal dsbi$<Space><CR>
