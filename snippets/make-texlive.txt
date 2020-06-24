@@ -1,18 +1,19 @@
+DOCNAME = foo
+MAIN = $(DOCNAME).tex
+
+SRC = $(glob *.tex)
+
 .PHONY: all
 all: $(DOCNAME).pdf
 
-$(DOCNAME).pdf: $(DOCNAME).tex
-	latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(DOCNAME).tex
+$(DOCNAME).pdf: $(SRC)
+	latexmk -jobname="$(DOCNAME)" -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN)
 
 .PHONY: watch
-watch: $(DOCNAME).tex
-	latexmk -pvc -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(DOCNAME).tex
+watch: $(SRC)
+	latexmk -jobname="$(DOCNAME)" -pvc -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $(MAIN)
 
 .PHONY: clean
-clean:
-	latexmk -CA
+clean: $(SRC)
+	latexmk -CA -jobname="$(DOCNAME)" $(MAIN)
 
-.PHONY: install
-install:
-	mkdir -pv ${out}/nix-support/
-	cp $(DOCNAME).pdf ${out}/
