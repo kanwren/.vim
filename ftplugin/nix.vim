@@ -8,5 +8,3 @@ nnoremap <buffer> <Leader>NU vaB%<Esc>:let @h=@/<CR>/owner<CR>f""jyi"j0f""kyi":N
 " above
 nnoremap <buffer> <Leader>NP vaB%<Esc>:let @h=@/<CR>/owner<CR>f""jyi"j0f""kyi":NPG <C-r>j <C-r>k
 
-command! -nargs=+ GetUploader let @" = system('curl --silent http://hackage.haskell.org/package/' . <f-args> . '/uploader')
-
