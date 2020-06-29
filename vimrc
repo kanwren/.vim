@@ -229,6 +229,8 @@
     vnoremap <silent> <Leader>s :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
     " Open an unlisted scratch buffer
     nnoremap <Leader>s :Scratch<CR>
+    " Run makeprg and automatically return
+    nnoremap m<CR> :make<CR><CR>
 
 " Managing Whitespace
     " Delete trailing whitespace and retab
@@ -344,7 +346,7 @@
         Plug 'tpope/vim-fugitive'                " Git integration
 
         " Utility
-        Plug 'machakann/vim-sandwich'            " Mappings for inserting/changing/deleting surrounding characters/elements
+        Plug 'tpope/vim-surround'                " Mappings for inserting/changing/deleting surrounding characters/elements
         Plug 'mg979/vim-visual-multi'            " Multiple cursors (I will happily defend this philosophy)
         Plug 'airblade/vim-rooter'               " cd to project root
         Plug 'tpope/vim-eunuch'                  " File operations
@@ -384,9 +386,6 @@
         " This should be loaded after language-specific plugins
         Plug 'sheerun/vim-polyglot'
         call plug#end()
-
-        " Use vim-surround mappings for vim-sandwich
-        runtime macros/sandwich/keymap/surround.vim
     endif
 " }}}
 
@@ -396,6 +395,7 @@
     let g:netrw_liststyle=3
 
 " vim-visual-multi
+    let g:VM_leader = '\'
     nmap <C-j> <Plug>(VM-Add-Cursor-Down)
     nmap <C-k> <Plug>(VM-Add-Cursor-Up)
 

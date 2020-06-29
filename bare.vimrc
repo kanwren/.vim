@@ -120,7 +120,7 @@ colorscheme elflord
 
 " runtime macros/matchit.vim
 " silent! if !empty(glob('~/.vim/autoload/plug.vim')) && !empty(glob('~/.vim/plugged')) && plug#begin(glob('~/.vim/plugged'))
-"     " Plug 'machakann/vim-sandwich'
+"     " Plug 'tpope/vim-surround'
 "     call plug#end()
 " endif
 
