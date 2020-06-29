@@ -347,6 +347,7 @@
 
         " Utility
         Plug 'tpope/vim-surround'                " Mappings for inserting/changing/deleting surrounding characters/elements
+        Plug 'tpope/vim-repeat'                  " Repeat more things with .
         Plug 'mg979/vim-visual-multi'            " Multiple cursors (I will happily defend this philosophy)
         Plug 'airblade/vim-rooter'               " cd to project root
         Plug 'tpope/vim-eunuch'                  " File operations
