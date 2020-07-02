@@ -357,7 +357,7 @@
         Plug 'jiangmiao/auto-pairs', { 'for': [ 'rust', 'java', 'c', 'cpp', 'javascript', 'typescript' ] }
 
         " Fuzzy finding
-        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+        Plug 'junegunn/fzf'
         Plug 'junegunn/fzf.vim'
 
         " Interface/colorschemes
