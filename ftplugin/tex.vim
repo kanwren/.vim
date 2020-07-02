@@ -1,7 +1,8 @@
 setlocal makeprg=pdflatex\ -quiet\ -aux-directory=%:h\ -output-directory\ %:h\ %
 
-set expandtab
-set textwidth=80
+setlocal expandtab
+setlocal textwidth=80
+setlocal breakindent
 " Automatically wrap at textwidth
 setlocal formatoptions+=t
 
