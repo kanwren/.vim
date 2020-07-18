@@ -43,3 +43,5 @@ endfunction
 " Prompt for and insert a language extension at the top of the current buffer
 command! -nargs=1 -complete=customlist,<SID>CompleteHsLanguageExts Ext call <SID>InsertExt(<q-args>)
 
+command! -range SortImports <line1>,<line2>sort /import\s\+\(qualified\)\=\s*/
+
