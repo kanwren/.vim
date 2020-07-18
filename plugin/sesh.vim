@@ -51,6 +51,6 @@ command! -nargs=? -complete=customlist,<SID>GetSessions RemoveSession :call <SID
 " Mappings
 
 " Providing a count uses temp-<count>.vim, otherwise it just uses temp.vim
-nnoremap <expr> \s ':<C-u>Save! ' . (v:count > 0 ? 'temp-' . v:count : 'temp') . '<CR>'
-nnoremap <expr> \r ':<C-u>Restore ' . (v:count > 0 ? 'temp-' . v:count : 'temp') . '<CR>'
+nnoremap <expr> <Leader>ss ':<C-u>Save! ' . (v:count > 0 ? 'temp-' . v:count : 'temp') . '<CR>'
+nnoremap <expr> <Leader>sr ':<C-u>Restore ' . (v:count > 0 ? 'temp-' . v:count : 'temp') . '<CR>'
 
