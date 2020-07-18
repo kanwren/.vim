@@ -219,16 +219,17 @@
     xnoremap <silent> . :normal .<CR>
     " Redraw page and clear highlights
     noremap <silent> <C-l> :nohlsearch<CR><C-l>
+    " Search word underneath cursor/selection but don't jump
+    nnoremap <silent> * :let wv=winsaveview()<CR>*:call winrestview(wv)<CR>
+    nnoremap <silent> # :let wv=winsaveview()<CR>#:call winrestview(wv)<CR>
 
 " Editing
     " Split current line by provided regex (\zs or \ze to preserve separators)
     nnoremap gs :s//\r/g<Left><Left><Left><Left><Left>
     " Start a visual substitute
     xnoremap gs :s/\%V
-    " Sort visual selection
-    vnoremap <silent> <Leader>s :sort /\ze\%V/<CR>gvyugvpgv:s/\s\+$//e \| nohlsearch<CR>``
-    " Open an unlisted scratch buffer
-    nnoremap <Leader>s :Scratch<CR>
+    " Open a temporary unlisted scratch buffer
+    nnoremap <Leader>t :Scratch<CR>
     " Run makeprg and automatically return
     nnoremap m<CR> :make<CR><CR>
 
